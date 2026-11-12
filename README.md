@@ -1,33 +1,17 @@
 # ✦ ShopAI — Autonomous AI Shopping Assistant & Retail Intelligence
 
-> **Tagline**: *"Your AI-Powered Personal Shopping Companion"*  
-> **Evaluation Rubrics**: PPT Presentation (10M) • Relevance of Title (5M) • AI & Data Analytics • Embedded/IoT (10M) • Teamwork (5M) • XAMPP Local Server (20M) • Live Platform/Phase 2 (30M) • Overall Project Working (20M)  
-> **Built by**: Team TechBees
+> **Tagline**: *"Shopping, Reimagined by AI"*  
+> **Architecture**: PHP REST APIs • MySQL Database • Node.js Server • Razorpay Gateway • 3D Three.js Portal
 
 ---
 
 ## 🌟 Executive Summary
 
-**ShopAI** is a next-generation AI-powered e-commerce platform and retail intelligence ecosystem. Built with a sophisticated **Glassmorphism Design System** (dark futuristic navy/black, electric blue, cyan, and violet accents), it bridges **Conversational AI**, **Machine Learning recommendation scoring**, **Physical Store IoT telemetry (ESP32 Smart Shelves)**, and **Predictive Merchant Analytics**.
+**ShopAI** is a next-generation AI-powered e-commerce platform and retail intelligence ecosystem. Built with a sophisticated **Minimalist Deep Teal + Coral Design System**, it bridges **Conversational AI Copilot**, **AI Visual Product Search**, **Explainable Machine Learning recommendation scoring**, **Razorpay Payment Gateway with Official Tax Invoicing**, **Physical Store IoT telemetry (ESP32 Smart Shelves)**, and **Predictive Merchant Analytics**.
 
 The platform is engineered with a **dual architecture**:
-1. **Local XAMPP Ready**: PHP REST API + MySQL database schema (`database/schema.sql`) for `http://localhost/AI-Shopping-Assistant/`.
-2. **Live Cloud & Serverless Ready**: Zero-dependency standalone client engine (`server.js` / `index.html`) with high-resiliency offline fallbacks.
-
----
-
-## 🎯 Evaluation Rubric Defense & Mapping
-
-| Evaluation Category | Marks | Project Feature Implementation |
-|---|---|---|
-| **1. PPT Presentation** | **10** | Integrated **"How It Works" (5 Steps)** & interactive architecture visualizer in the web UI, plus complete 10-slide guide in [`docs/PPT_PRESENTATION_GUIDE.md`](docs/PPT_PRESENTATION_GUIDE.md) |
-| **2. Relevance of Title** | **5** | **AI** (NLP intent extraction, match scoring, predictive restock) + **Shopping** (catalog, cart, deals) + **Assistant** (conversational chat, voice input simulation, floating assistant orb) |
-| **3. AI & Data Analytics** | **High** | **AI Insight Engine** (cross-sell affinity, demand velocity, dynamic pricing) + **AI Recommendation Engine** (precision match scores e.g. 96%, transparent "Why AI Recommends This" rationales) |
-| **4. Embedded / IoT** | **10** | **ESP32 Smart Shelf Integration**: Hardware C++ script ([`iot/esp32_smart_shelf.ino`](iot/esp32_smart_shelf.ino)), circuit guide ([`iot/circuit_diagram_guide.md`](iot/circuit_diagram_guide.md)), and live web telemetry panel with Online status, 24.6°C temp, 82% stock, and simulation toggle |
-| **5. Teamwork** | **5** | Dedicated **"Our Team"** section showcasing balanced multi-disciplinary roles (AI/ML, Frontend/UI, Backend/DB, IoT/Embedded, Analytics/QA) |
-| **6. XAMPP Local Server** | **20** | Clean, portable PHP REST backend + MySQL database schema (`database/schema.sql`) placed in `htdocs/AI-Shopping-Assistant/`, zero-crash offline fallbacks |
-| **7. Live Platform / Phase 2** | **30** | Modular architecture, decoupled configuration variables (`api/config.php`), scalable REST APIs, responsive glassmorphism UI ready for cloud deployment |
-| **8. Overall Project Working** | **20** | 100% interactive end-to-end flow: Search -> Chat -> Match % -> Compare -> Cart Savings -> Merchant Analytics -> IoT Shelf Telemetry -> AI Campaign Generator |
+1. **Local XAMPP Ready**: PHP REST APIs + MySQL relational schema (`database/schema.sql`) for `http://localhost/AI-Shopping-Assistant/`.
+2. **Integrated Full-Stack Server**: Standalone zero-dependency Node.js engine (`server.js`) with complete in-memory fallback emulation, REST endpoints, and instant local execution.
 
 ---
 
@@ -53,20 +37,21 @@ Open **`http://localhost:3000`** in any web browser.
 
 ---
 
-## 🧭 10-Step Live Demonstration Flow for Judges
+## 🧭 Interactive Feature Tour
 
-On the Home landing page, click the **"Quick Judge Evaluation Launcher"** or follow these 10 steps:
+Explore the platform through its core intelligent capabilities:
 
-1. **Hero & AI Orb**: Open the landing page. Note the glowing animated AI orb, neural particles, and floating match badges.
-2. **Natural Language Search**: Go to *Discover*. Enter `"Waterproof jacket under ₹8,000 for trekking"`. Notice how the system extracts Budget (₹8,000) and Category (Outdoor Gear).
-3. **Transparent AI Match Score**: Click any product to inspect the **94% AI Match** and read the *"Why AI Recommends This"* explanation.
-4. **Product Comparison Matrix**: Click *Compare*. Inspect the side-by-side spec comparison and the **AI Winner** highlighted with a glowing electric cyan border.
-5. **Smart Cart & Bundle Savings**: Add the *Zenith UltraSlim 15 Laptop* and *Nordic Minimalist Backpack* to the cart. Observe the **"AI Savings Suggestion: You saved ₹800 by choosing this bundle"**.
-6. **Conversational Shopping Assistant**: Open *AI Assistant* or click the bottom-right **Floating AI Orb**. Ask: *"Find me a waterproof jacket under ₹8,000"*. Test the voice mic simulation.
-7. **Merchant Dashboard & KPIs**: Switch to *Dashboard*. View real-time revenue (₹2,48,950), conversion rate (3.84%), weekly trend canvas chart, and category GMV share.
-8. **AI Business Insights**: In the Merchant view, review the **Demand Prediction** (*"Running shoes selling 34% faster this week"*) and **Cross-Sell Affinity** insights.
-9. **Smart Shopping IoT Panel**: Open *IoT Shelf*. Observe the live **ESP32 Smart Shelf** telemetry (● Online, 24.6°C, 82% Stock, 41 count). Click **"Trigger Sensor Pulse"** or **"Simulate Low Stock Alert"**.
-10. **Targeted AI Campaign Generator**: Go to *AI Campaigns*. Enter `"Create a promotion for customers interested in fitness"`. Watch the AI instantly generate the *"Fitness Weekend"* campaign, 15% discount, and bundle configuration.
+1. **3D Cinematic Smart Shopping Portal**: Realistic 3D portal animation built with Three.js, featuring smooth lighting, atmospheric particles, and centered brand reveal.
+2. **AI Visual Product Search**: Upload, drag-and-drop, or capture product images with webcam to search with 64-dimensional feature vector embeddings and category cosine similarity.
+3. **Natural Language Search**: Go to *Discover*. Enter natural queries like *"Waterproof jacket under ₹8,000 for trekking"*. The NLP engine parses budget and category automatically.
+4. **Transparent AI Match Score**: Click any product to inspect real-time **AI Match Percentage** (e.g. 96%) with explainable rationale badges.
+5. **Product Comparison Matrix**: Select multiple products to compare specs, ratings, and features side-by-side with automated AI Winner highlighting.
+6. **Smart Cart & Bundle Savings**: Add complementary items to automatically unlock smart bundle discounts (e.g. Save ₹800 instantly on Creator Tech Bundles).
+7. **Razorpay Payment Gateway**: Seamless checkout with test mode credit/debit card, instant UPI QR code, and Netbanking with simulated failure and success handling.
+8. **Automated Official Tax Invoice**: Instant printable GST tax invoice with CGST/SGST tax breakdown, QR verification code, and one-click PDF printing.
+9. **Conversational Shopping Copilot**: Open *AI Assistant* or launch the persistent floating assistant launcher to ask questions, explore deals, or receive personalized shopping recommendations.
+10. **Merchant Analytics & IoT Telemetry**: Switch to *Dashboard* for real-time revenue analytics, conversion funnels, and live ESP32 Smart Shelf inventory tracking.
+11. **Multilingual Support**: Real-time language switching across English, Kannada (ಕನ್ನಡ), Hindi (हिन्दी), Tamil (தமிழ்), Telugu (తెలుగు), and Malayalam (മലയാളം).
 
 ---
 
@@ -74,40 +59,44 @@ On the Home landing page, click the **"Quick Judge Evaluation Launcher"** or fol
 
 ```
 AI-Shopping-Assistant/
-├── index.html                   # Premium responsive Glassmorphism Web App
+├── index.html                   # Responsive Commerce Web Application
 ├── index.php                    # XAMPP entry point
-├── server.js                    # Zero-dependency Node.js server runner
+├── server.js                    # Full-stack Node.js server with REST APIs
 ├── package.json                 # Project descriptor and scripts
 ├── api/                         # PHP REST Backend Endpoints
-│   ├── config.php               # Environment configuration & DB connection
+│   ├── config.php               # Database configuration & PDO connection
 │   ├── products.php             # Product catalog, filtering & sorting
 │   ├── chat.php                 # Conversational NLP assistant handler
+│   ├── orders.php               # Orders creation and history
+│   ├── change-password.php      # User password management
 │   ├── iot_sensor.php           # ESP32 telemetry receiver & status streamer
 │   ├── analytics.php            # Merchant KPIs, chart metrics & AI insights
-│   └── promotions.php           # AI campaign generator
+│   ├── promotions.php           # AI campaign generator
+│   ├── payment/                 # Razorpay Payment Gateway Endpoints
+│   │   ├── create-order.php     # Order creation with GST & discounts
+│   │   ├── verify.php           # Cryptographic HMAC SHA-256 verification
+│   │   └── status.php           # Payment status lookup
+│   └── visual-search/           # AI Multimodal Visual Search
+│       ├── analyse.php          # Image attribute extraction & classification
+│       ├── search.php           # Vector cosine similarity matching
+│       └── embedding_engine.php # 64-D vector generator
 ├── assets/
 │   ├── css/
-│   │   └── glassmorphism.css    # Complete Glassmorphism Design System
+│   │   └── glassmorphism.css    # Deep Teal + Coral Design System & themes
 │   └── js/
-│       ├── store.js             # Data models, cart logic & simulated state
-│       ├── ai-engine.js         # NLP parser & recommendation algorithms
+│       ├── store.js             # Data models, cart logic & reactive store
+│       ├── ai-engine.js         # NLP parser, visual embeddings & recommendations
 │       ├── analytics-charts.js  # Canvas & SVG chart rendering engines
-│       └── app.js               # Main view router & interaction controller
+│       ├── portal-splash.js     # Three.js 3D Smart Shopping Portal
+│       ├── i18n.js              # Multilingual internationalization dictionary
+│       └── app.js               # Main view router & component controller
 ├── database/
-│   └── schema.sql               # 8-Table MySQL relational database script
+│   ├── schema.sql               # MySQL relational database script
+│   └── catalog_embeddings.json  # Pre-computed 64-D product feature vectors
 ├── iot/
 │   ├── esp32_smart_shelf.ino    # Arduino C++ firmware for ESP32
 │   └── circuit_diagram_guide.md # Hardware wiring, pinout & schematic guide
 └── docs/
-    ├── PPT_PRESENTATION_GUIDE.md# 10-Slide presentation guide for defense
+    ├── PPT_PRESENTATION_GUIDE.md# Project presentation guide
     └── DEPLOYMENT_GUIDE.md      # XAMPP & Live platform deployment instructions
 ```
-
----
-
-## 👥 Team TechBees — Roles & Contributions
-
-- **Aravind S.** — *AI & Recommendation Models* (NLP intent parser, match scoring algorithm, dynamic bundle pricing)
-- **Sneha K.** — *Frontend & UI/UX* (Glassmorphism design system, animated orbs, responsive layouts)
-- **Karthik R.** — *Embedded Systems / IoT* (ESP32 C++ firmware, ultrasonic stock sensor integration, HTTP API)
-- **Vikram N.** — *Backend & Database* (MySQL 8-table relational schema, PHP REST controllers, analytics pipeline)
