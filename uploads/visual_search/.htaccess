@@ -1,0 +1,15 @@
+# Prevent direct script execution in upload directory
+Options -Indexes -ExecCGI
+php_flag engine off
+SetHandler default-handler
+
+<FilesMatch "\.(php|phtml|php3|php4|php5|php7|phps|exe|pl|py|cgi|sh|bat)$">
+  Order Deny,Allow
+  Deny from all
+</FilesMatch>
+
+# Only allow image MIME delivery
+<FilesMatch "\.(jpg|jpeg|png|webp|gif)$">
+  Order Allow,Deny
+  Allow from all
+</FilesMatch>

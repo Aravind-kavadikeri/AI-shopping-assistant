@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
+  <defs>
+    <linearGradient id="portalTealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#168C91" />
+      <stop offset="100%" stop-color="#123D46" />
+    </linearGradient>
+    <linearGradient id="coralAccentGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F07861" />
+      <stop offset="100%" stop-color="#F5A08D" />
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#F07861" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Architectural Ring / Hexagonal Portal Silhouette -->
+  <circle cx="60" cy="60" r="54" fill="url(#portalTealGrad)" stroke="#168C91" stroke-width="2" opacity="0.15" />
+  <circle cx="60" cy="60" r="48" fill="none" stroke="url(#portalTealGrad)" stroke-width="3.5" stroke-dasharray="14 6" />
+  
+  <!-- Outer Accent Orbit Ring -->
+  <circle cx="60" cy="60" r="41" fill="none" stroke="#168C91" stroke-width="1.5" opacity="0.6" />
+
+  <!-- Inner Architectural Facets (Geometric Portal) -->
+  <polygon points="60,24 88,42 88,78 60,96 32,78 32,42" fill="#123D46" stroke="#168C91" stroke-width="2.5" />
+  
+  <!-- Coral Core AI Chevron (Shopping Bag & Portal Arrow Silhouette) -->
+  <path d="M46 54 L60 38 L74 54 L68 76 L60 82 L52 76 Z" fill="url(#coralAccentGrad)" filter="url(#softGlow)" />
+  
+  <!-- Inner Neural Aperture -->
+  <polygon points="60,46 70,58 60,70 50,58" fill="#10252A" stroke="#FFFFFF" stroke-width="1.2" />
+
+  <!-- Central Intelligence Radiant Star -->
+  <path d="M60 52 Q60 58 54 58 Q60 58 60 64 Q60 58 66 58 Q60 58 60 52 Z" fill="#FFFFFF" />
+  
+  <!-- Dynamic Coral Accent Nodes -->
+  <circle cx="60" cy="24" r="3" fill="#F07861" />
+  <circle cx="88" cy="78" r="2.5" fill="#168C91" />
+  <circle cx="32" cy="78" r="2.5" fill="#168C91" />
+</svg>

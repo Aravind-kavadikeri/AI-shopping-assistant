@@ -1,0 +1,1196 @@
+/* ==========================================================================
+   AI SHOPPING ASSISTANT — MASTER DESIGN SYSTEM
+   Design Direction: Premium Minimalist AI Commerce Platform
+   Colour Identity: Deep Teal (#123D46) + Rich Teal (#168C91) + Coral (#F07861)
+   Themes: Full Light Mode (#F7F4EC) & Dark Mode (#101C20)
+   Typography: Inter & Manrope
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap');
+
+/* ==========================================================================
+   1. DESIGN TOKENS & CSS VARIABLES
+   ========================================================================== */
+
+:root {
+  /* Primary Colour Palette - Light Theme Default */
+  --color-primary: #123D46;          /* Deep Teal */
+  --color-secondary: #168C91;        /* Rich Teal */
+  --color-accent: #F07861;           /* Coral */
+  --color-accent-soft: #F5A08D;      /* Soft Coral */
+  --color-background: #F7F4EC;       /* Warm White */
+  --color-surface: #FFFFFF;          /* Pure White */
+  --color-surface-elevated: #F0ECE1; /* Subtle Off-white */
+  --color-surface-hover: #EBE5D8;
+  --color-text: #17272B;             /* Charcoal */
+  --color-text-secondary: #77868A;   /* Muted Grey */
+  --color-border: #E3E9E7;           /* Light Border */
+  --color-border-hover: #168C91;     /* Teal Hover Border */
+  
+  /* Status Colours */
+  --color-success: #248A62;          /* Forest Green */
+  --color-warning: #D99536;          /* Warm Amber */
+  --color-error: #D94B4B;            /* Crimson */
+
+  /* Typography */
+  --font-sans: 'Inter', 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Spacing & Radii */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(18, 61, 70, 0.04);
+  --shadow-sm: 0 2px 6px rgba(18, 61, 70, 0.06);
+  --shadow-md: 0 6px 18px rgba(18, 61, 70, 0.08);
+  --shadow-lg: 0 12px 32px rgba(18, 61, 70, 0.12);
+  --shadow-coral: 0 6px 20px rgba(240, 120, 97, 0.28);
+  --shadow-teal: 0 6px 20px rgba(22, 140, 145, 0.24);
+
+  /* Transitions */
+  --transition-fast: 0.18s ease;
+  --transition-smooth: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Compatibility & Legacy Aliases (maps seamlessly to existing code) */
+  --bg-dark: var(--color-background);
+  --bg-card: var(--color-surface);
+  --bg-card-hover: var(--color-surface-hover);
+  --bg-glass-heavy: var(--color-surface);
+  --bg-glass-input: var(--color-surface-elevated);
+  --border-glass: var(--color-border);
+  --border-glass-hover: var(--color-secondary);
+  --border-glow-cyan: var(--shadow-teal);
+  --cyan-accent: var(--color-secondary);
+  --blue-accent: var(--color-primary);
+  --violet-accent: var(--color-secondary);
+  --emerald-accent: var(--color-success);
+  --amber-accent: var(--color-warning);
+  --rose-accent: var(--color-accent);
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   2. DARK THEME TOKENS
+   ========================================================================== */
+
+[data-theme="dark"], body.dark-theme {
+  --color-primary: #168C91;          /* Rich Teal */
+  --color-secondary: #42AAA5;        /* Soft Bright Teal */
+  --color-accent: #F07861;           /* Coral */
+  --color-accent-soft: #F5A08D;      /* Soft Coral */
+  --color-background: #101C20;       /* Dark Main BG */
+  --color-surface: #17272B;          /* Dark Main Surface */
+  --color-surface-elevated: #20363A; /* Dark Elevated Surface */
+  --color-surface-hover: #264044;
+  --color-text: #F4F7F5;             /* Light Text */
+  --color-text-secondary: #A5B5B5;   /* Light Muted Text */
+  --color-border: #304448;           /* Dark Border */
+  --color-border-hover: #42AAA5;
+  
+  --color-success: #248A62;
+  --color-warning: #D99536;
+  --color-error: #D94B4B;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65);
+  --shadow-coral: 0 6px 20px rgba(240, 120, 97, 0.22);
+  --shadow-teal: 0 6px 20px rgba(66, 170, 165, 0.2);
+
+  /* Legacy Aliases */
+  --bg-dark: var(--color-background);
+  --bg-card: var(--color-surface);
+  --bg-card-hover: var(--color-surface-hover);
+  --bg-glass-heavy: var(--color-surface);
+  --bg-glass-input: var(--color-surface-elevated);
+  --border-glass: var(--color-border);
+  --border-glass-hover: var(--color-secondary);
+  --cyan-accent: var(--color-secondary);
+  --blue-accent: var(--color-primary);
+  --violet-accent: var(--color-secondary);
+  --emerald-accent: var(--color-success);
+  --amber-accent: var(--color-warning);
+  --rose-accent: var(--color-accent);
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   3. GLOBAL BASE STYLES & RESET
+   ========================================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.6;
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+/* Clean background - removes noisy blurred rainbow orbs */
+.bg-ambient {
+  display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--color-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+/* Form Inputs, Selects, Buttons Common Reset */
+input, select, textarea, button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ==========================================================================
+   4. NAVIGATION COMPONENTS
+   ========================================================================== */
+
+.navbar-floating {
+  position: sticky;
+  top: 14px;
+  z-index: 100;
+  max-width: 1480px;
+  width: 100%;
+  margin: 0 auto 24px auto;
+  padding: 12px 30px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+  transition: background var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-text-secondary);
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.92rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-btn:hover {
+  color: var(--color-primary);
+  background: var(--color-surface-elevated);
+}
+
+.nav-btn.active {
+  color: #FFFFFF;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .nav-btn.active {
+  color: #FFFFFF;
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+/* Nav Logo Badge */
+.nav-logo-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .nav-logo-badge {
+  background: var(--color-secondary);
+}
+
+.nav-brand-title {
+  font-family: var(--font-heading);
+  font-size: 1.18rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+  line-height: 1.15;
+}
+
+.nav-brand-accent {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+/* ── Navbar right-side action buttons: uniform height & flex alignment ── */
+.navbar-floating > div:last-child {
+  align-items: center;
+}
+
+.navbar-floating .glass-pill,
+.navbar-floating .theme-toggle-btn,
+.navbar-floating .btn-accent {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle;
+}
+
+/* Make navbar a bit wider / more spacious */
+.navbar-floating {
+  padding-left: 36px;
+  padding-right: 36px;
+}
+
+/* ==========================================================================
+   5. BUTTONS & INTERACTIVE PILLS
+   ========================================================================== */
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  font-weight: 600;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  padding: 10px 22px;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Coral Action Button for High-Priority Triggers */
+.btn-accent, .btn-coral {
+  background: var(--color-accent);
+  color: #FFFFFF;
+  font-weight: 600;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  padding: 10px 22px;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-coral);
+}
+
+.btn-accent:hover, .btn-coral:hover {
+  background: #E4664F;
+  border-color: #E4664F;
+  transform: translateY(-1px);
+}
+
+.btn-glass, .btn-outline {
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-fast);
+}
+
+.btn-glass:hover, .btn-outline:hover {
+  background: var(--color-surface-elevated);
+  border-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+/* Pills & Filter Badges */
+.glass-pill {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-fast);
+  cursor: pointer;
+  user-select: none;
+}
+
+.glass-pill:hover {
+  color: var(--color-text);
+  border-color: var(--color-secondary);
+  background: var(--color-surface-elevated);
+}
+
+.glass-pill.active {
+  color: var(--color-primary);
+  border-color: var(--color-secondary);
+  background: rgba(22, 140, 145, 0.12);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .glass-pill.active {
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  background: rgba(66, 170, 165, 0.15);
+}
+
+/* Theme Switcher Toggle Button */
+.theme-toggle-btn {
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ==========================================================================
+   6. CARDS & SURFACES
+   ========================================================================== */
+
+.glass-panel, .card, .panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.glass-panel-hover:hover, .card-hover:hover {
+  border-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Elevated Surface Container (e.g. nested lists, filters) */
+.surface-elevated {
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   7. PRODUCT CARDS
+   ========================================================================== */
+
+.product-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
+  position: relative;
+  box-shadow: var(--shadow-xs);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-md);
+}
+
+.product-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: var(--color-surface-elevated);
+}
+
+.product-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-img-wrap img {
+  transform: scale(1.05);
+}
+
+/* AI Match Score Badge on Product Card */
+.match-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-secondary);
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+[data-theme="dark"] .match-badge {
+  background: var(--color-surface-elevated);
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.match-badge:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ==========================================================================
+   8. AI CHAT ASSISTANT & AGENTIC PROPOSALS
+   ========================================================================== */
+
+.chat-window {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  min-height: 600px;
+}
+
+.chat-bubble-ai {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px 16px 16px 4px;
+  padding: 16px 20px;
+  color: var(--color-text);
+  box-shadow: var(--shadow-xs);
+}
+
+.chat-bubble-user {
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 16px 16px 4px 16px;
+  padding: 14px 18px;
+  color: #FFFFFF;
+  align-self: flex-end;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .chat-bubble-user {
+  background: #1B454B;
+  border-color: var(--color-secondary);
+}
+
+/* Agentic Action Approval Proposal Card */
+.agentic-proposal-card {
+  margin-top: 12px;
+  padding: 16px 18px;
+  background: rgba(22, 140, 145, 0.08);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+}
+
+[data-theme="dark"] .agentic-proposal-card {
+  background: rgba(66, 170, 165, 0.1);
+  border-color: var(--color-secondary);
+}
+
+/* Persistent Floating AI Launcher */
+.floating-ai-launcher {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.floating-ai-launcher:hover {
+  background: var(--color-secondary);
+  transform: scale(1.08);
+}
+
+.floating-ai-drawer {
+  position: fixed;
+  bottom: 100px;
+  right: 28px;
+  width: 420px;
+  max-width: calc(100vw - 36px);
+  height: 580px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+  overflow: hidden;
+  transition: transform var(--transition-smooth), opacity var(--transition-smooth);
+}
+
+.floating-ai-drawer.hidden {
+  transform: translateY(20px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   9. COMPARISON MATRIX
+   ========================================================================== */
+
+.comparison-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  transition: var(--transition-fast);
+}
+
+.comparison-card.winner {
+  border: 2px solid var(--color-accent);
+  background: rgba(240, 120, 97, 0.04);
+  box-shadow: var(--shadow-coral);
+  position: relative;
+}
+
+.winner-crown {
+  position: absolute;
+  top: -12px;
+  right: 18px;
+  background: var(--color-accent);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   10. MODALS & NOTIFICATIONS DRAWER
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(16, 28, 32, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  max-width: 620px;
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text);
+}
+
+.modal-content-lg {
+  max-width: 960px;
+}
+
+/* Notifications Drawer */
+.notifications-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 380px;
+  max-width: 100vw;
+  height: 100vh;
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  z-index: 99998;
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.25s ease;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================================================
+   11. SMART SHOPPING PORTAL 3D SPLASH SCREEN (DEEP TEAL + CORAL THEME)
+   ========================================================================== */
+
+#splash-screen.portal-splash,
+#splash-screen.space-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: radial-gradient(circle at 50% 48%, #14353D 0%, #0E2429 65%, #08171B 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.65s, transform 0.65s ease;
+}
+
+#splash-screen.portal-splash.fade-out,
+#splash-screen.space-splash.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.03);
+}
+
+#splash-canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#splash-canvas-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* 2D Brand Reveal Overlay — Centered in viewport */
+#splash-brand-reveal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(-50% + 20px));
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 90%;
+  max-width: 600px;
+}
+
+#splash-brand-reveal.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-50%);
+  pointer-events: auto;
+}
+
+.splash-logo-wrap {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-lg);
+  background: rgba(18, 61, 70, 0.75);
+  border: 1.5px solid var(--color-secondary);
+  box-shadow: 0 0 40px rgba(22, 140, 145, 0.45), 0 0 20px rgba(240, 120, 97, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 12px;
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% { box-shadow: 0 0 25px rgba(22, 140, 145, 0.35), 0 0 10px rgba(240, 120, 97, 0.25); }
+  50% { box-shadow: 0 0 35px rgba(240, 120, 97, 0.5), 0 0 20px rgba(22, 140, 145, 0.4); }
+}
+
+.splash-brand-title {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 6px 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.splash-brand-title .coral-accent {
+  color: var(--color-accent);
+}
+
+.splash-brand-tagline {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #D2DFE2;
+  letter-spacing: 0.04em;
+  margin: 0 0 18px 0;
+  font-weight: 500;
+}
+
+.splash-portal-loader {
+  width: 180px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.splash-portal-loader-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #168C91, #F07861);
+  animation: portalBarLoad 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes portalBarLoad {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+.splash-skip-hint {
+  font-size: 0.78rem;
+  color: #8CA0A5;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   12. MOBILE NAVIGATION & RESPONSIVENESS
+   ========================================================================== */
+
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 12px;
+  left: 14px;
+  right: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 8px 14px;
+  z-index: 90;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 900px) {
+  .chat-window {
+    grid-template-columns: 1fr;
+  }
+  .navbar-floating .nav-links {
+    display: none;
+  }
+  .mobile-bottom-nav {
+    display: flex;
+  }
+  body {
+    padding-bottom: 85px;
+  }
+}
+
+/* Authentication Gate Layout */
+.auth-gate-card {
+  max-width: 960px;
+  width: 100%;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  margin: 30px auto;
+  background: var(--color-surface);
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+@media (max-width: 860px) {
+  .auth-gate-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================
+ * AI VISUAL PRODUCT SEARCH - CSS STYLES
+ * Deep Teal + Coral Design System • Drag-and-Drop & Camera
+ * ========================================================== */
+
+.vs-modal-content {
+  max-width: 980px;
+  width: 95vw;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.vs-header {
+  padding: 20px 24px;
+  background: var(--color-surface-elevated);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vs-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.vs-dropzone {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 20px;
+  text-align: center;
+  background: var(--color-surface-elevated);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.vs-dropzone:hover,
+.vs-dropzone.dragover {
+  border-color: var(--color-accent);
+  background: rgba(240, 120, 97, 0.06);
+  transform: scale(1.005);
+}
+
+.vs-tab-btn {
+  padding: 10px 18px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-elevated);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vs-tab-btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-secondary);
+}
+
+.vs-tab-btn.active {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(18, 61, 70, 0.25);
+}
+
+.vs-camera-viewport {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #000000;
+  border: 2px solid var(--color-border);
+}
+
+.vs-camera-viewport video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vs-camera-guide {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  right: 15%;
+  bottom: 15%;
+  border: 2px dashed rgba(240, 120, 97, 0.75);
+  border-radius: var(--radius-md);
+  pointer-events: none;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.45);
+}
+
+.vs-preview-card {
+  display: flex;
+  gap: 20px;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.vs-preview-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.vs-color-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.76rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.vs-color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  display: inline-block;
+}
+
+.vs-match-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, rgba(22, 140, 145, 0.15), rgba(240, 120, 97, 0.15));
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.vs-result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 680px) {
+  .vs-preview-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .vs-result-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================
+   RAZORPAY PAYMENT GATEWAY & TAX INVOICE STYLES
+   ========================================================== */
+.rzp-tab-btn {
+  transition: all var(--transition-fast);
+}
+.rzp-tab-btn:hover {
+  filter: brightness(1.1);
+}
+
+.invoice-modal-content {
+  max-width: 820px;
+  width: 95vw;
+  background: #FFFFFF;
+  color: #1A202C;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+}
+
+[data-theme="dark"] .invoice-modal-content {
+  background: #142226;
+  color: #F8FAFC;
+  border-color: #2D3E44;
+}
+
+.invoice-printable-sheet {
+  padding: 36px 40px;
+  background: inherit;
+  color: inherit;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.88rem;
+}
+
+.invoice-table th {
+  background: rgba(18, 61, 70, 0.08);
+  color: #123D46;
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 2px solid #CBD5E1;
+}
+
+[data-theme="dark"] .invoice-table th {
+  background: rgba(22, 140, 145, 0.15);
+  color: #4FD1C5;
+  border-color: #334E57;
+}
+
+.invoice-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+[data-theme="dark"] .invoice-table td {
+  border-color: #26383E;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #invoice-modal,
+  #invoice-modal .invoice-printable-sheet,
+  #invoice-modal .invoice-printable-sheet * {
+    visibility: visible;
+  }
+  #invoice-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+  }
+  .invoice-modal-content {
+    box-shadow: none !important;
+    border: none !important;
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .invoice-no-print {
+    display: none !important;
+  }
+  .invoice-table th {
+    background: #EEEEEE !important;
+    color: #000000 !important;
+  }
+}
+
+

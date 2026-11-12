@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Shopping Assistant — Shopping, Reimagined by AI</title>
+  <meta name="description" content="AI Shopping Assistant — Premium AI Commerce Platform with Deep Teal & Coral design system, 3D Smart Shopping Portal, conversational assistant, and real-time merchant analytics.">
+  
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+  
+  <!-- Google Fonts: Inter & Manrope -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/glassmorphism.css">
+
+  <!-- Immediate Theme Initialization to avoid flicker -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('shopai_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- SMART SHOPPING PORTAL 3D CINEMATIC SPLASH SCREEN -->
+  <div id="splash-screen" class="portal-splash" title="Click anywhere or press Enter to skip">
+    <!-- 3D Three.js WebGL Viewport Container -->
+    <div id="splash-canvas-container"></div>
+
+    <!-- 2D Brand Reveal & Tagline (Orchestrated in Scene 4) -->
+    <div id="splash-brand-reveal">
+      <div class="splash-logo-wrap">
+        <img src="assets/images/logo.svg" alt="AI Shopping Assistant" style="width: 100%; height: 100%; object-fit: contain;" />
+      </div>
+      <h1 class="splash-brand-title">
+        AI <span style="font-weight: 500; color: #FFFFFF;">SHOPPING</span> <span class="coral-accent">ASSISTANT</span>
+      </h1>
+      <p class="splash-brand-tagline">
+        Shopping, Reimagined by AI.
+      </p>
+      <div class="splash-portal-loader">
+        <div class="splash-portal-loader-bar"></div>
+      </div>
+      <div class="splash-skip-hint">
+        Click anywhere or press Enter to skip
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width: 1480px; margin: 0 auto; padding: 0 24px;">
+    
+    <!-- NAVIGATION BAR -->
+    <header class="navbar-floating">
+      <!-- Brand Identity — Text only, logo on left -->
+      <a href="#" data-view="home" style="text-decoration: none; display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+        <div style="display: flex; flex-direction: column;">
+          <span class="nav-brand-title">AI <span style="font-weight: 500; font-size: 1.12rem; color: var(--color-text);">SHOPPING</span> <span class="nav-brand-accent">ASSISTANT</span></span>
+          <span style="font-size: 0.65rem; color: var(--color-text-secondary); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; line-height: 1;">Shopping, Reimagined by AI</span>
+        </div>
+      </a>
+
+      <!-- Desktop Dynamic Nav Links -->
+      <ul class="nav-links" id="navbar-nav-links">
+        <li><button class="nav-btn active" data-view="home">Home</button></li>
+        <li><button class="nav-btn" data-view="discover">Discover</button></li>
+        <li><button class="nav-btn" data-view="assistant">AI Assistant</button></li>
+        <li><button class="nav-btn" data-view="deals">Deals</button></li>
+        <li><button class="nav-btn" data-view="profile">Orders & Profile</button></li>
+        <li><button class="nav-btn" data-view="merchant">Dashboard</button></li>
+      </ul>
+
+      <!-- Right Header Actions (Theme Switcher, Language, Persona, Compare, Wishlist, Cart, Notifs, Auth) -->
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <!-- Language Selector -->
+        <div id="navbar-lang-container" style="display: inline-flex; align-items: center; gap: 4px;">
+          <select class="lang-selector-select glass-pill" onchange="if(window.I18n) I18n.setLanguage(this.value)" style="border-radius:var(--radius-pill); padding:5px 10px; font-size:0.8rem; font-weight:600; background:var(--color-surface-elevated); color:var(--color-text); border:1px solid var(--color-border); cursor:pointer; outline:none;" title="Select Preferred Language">
+            <option value="en">English</option>
+            <option value="kn">ಕನ್ನಡ (Kannada)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="te">తెలుగు (Telugu)</option>
+            <option value="ml">മലയാളം (Malayalam)</option>
+          </select>
+        </div>
+
+        <!-- Theme Toggle Switcher -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="App.toggleTheme()" title="Toggle Light / Dark Theme">
+          <span id="theme-toggle-icon">🌙</span>
+          <span id="theme-toggle-text">Dark</span>
+        </button>
+
+        <!-- Persona Badge Button -->
+        <button id="role-toggle-btn" class="glass-pill" style="font-size: 0.78rem; font-weight: 700;" onclick="App.openAuthModal()" title="Active Shopper Persona - Click to Switch Profile">
+          <span id="role-toggle-label">🎓 Student Dev</span>
+        </button>
+
+        <!-- Compare Icon Button -->
+        <button id="navbar-compare-btn" class="glass-pill" data-view="compare" title="Product Comparison" style="position: relative;">
+          <span>⚖️</span>
+          <span id="navbar-compare-count" style="display:none; background:var(--color-secondary); color:#fff; font-size:0.7rem; font-weight:700; padding:1px 6px; border-radius:99px; margin-left:2px;">0</span>
+        </button>
+
+        <!-- Wishlist Icon Button -->
+        <button id="navbar-wishlist-btn" class="glass-pill" data-view="profile" title="Saved Wishlist" style="position: relative;">
+          <span style="color: var(--color-accent);">♥</span>
+          <span id="navbar-wishlist-count" style="display:none; background:var(--color-accent); color:#fff; font-size:0.7rem; font-weight:700; padding:1px 6px; border-radius:99px; margin-left:2px;">0</span>
+        </button>
+
+        <!-- Cart Icon Button -->
+        <button id="navbar-cart-btn" class="btn-accent" data-view="cart" style="padding: 8px 16px; font-size: 0.88rem; position: relative;">
+          <span>🛒 Cart</span>
+          <span id="navbar-cart-count" style="display:none; background:#FFFFFF; color:var(--color-accent); font-size:0.75rem; font-weight:800; padding:2px 7px; border-radius:99px; margin-left:4px;">0</span>
+        </button>
+
+        <!-- Notifications Button -->
+        <button id="navbar-notif-btn" class="glass-pill" onclick="App.openNotificationsDrawer()" title="AI Notifications & Price Drops" style="position: relative;">
+          <span>🔔</span>
+          <span id="navbar-notif-count" style="background:var(--color-accent); color:#fff; font-size:0.7rem; font-weight:700; padding:1px 6px; border-radius:99px; margin-left:2px;">2</span>
+        </button>
+
+        <!-- User Profile Avatar & Login Trigger -->
+        <div id="user-avatar-btn" onclick="App.openAuthModal()" style="cursor: pointer; width: 36px; height: 36px; border-radius: 50%; background: var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; color: #fff; border: 1.5px solid var(--color-border);" title="Sign In / Register / User Profiling">
+          AS
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN DYNAMIC CONTENT CONTAINER -->
+    <main id="main-content"></main>
+
+    <!-- FOOTER -->
+    <footer style="margin-top: 80px; padding: 40px 0 60px 0; border-top: 1px solid var(--color-border); color: var(--color-text-secondary); font-size: 0.85rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: 8px; background: rgba(18, 61, 70, 0.9); border: 1px solid var(--color-secondary); display: flex; align-items: center; justify-content: center; padding: 4px;">
+            <img src="assets/images/logo.svg" alt="AI Shopping Assistant Logo" style="width: 100%; height: 100%; object-fit: contain;" />
+          </div>
+          <span style="color: var(--color-text); font-weight: 700;">AI Shopping Assistant</span>
+          <span>• Shopping, Reimagined by AI</span>
+        </div>
+        <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+          <a href="#" data-view="home">Home</a>
+          <a href="#" data-view="discover">Discover</a>
+          <a href="#" data-view="assistant">AI Assistant</a>
+          <a href="#" data-view="deals">Deals</a>
+          <a href="#" data-view="profile">Orders & Profile</a>
+          <a href="#" data-view="merchant">Merchant Dashboard</a>
+          <a href="#" data-view="how-it-works">Architecture & Flow</a>
+        </div>
+      </div>
+      <div style="margin-top: 20px; font-size: 0.78rem; color: var(--color-text-secondary); text-align: center;">
+        Deep Teal & Coral Minimalist Commerce Design System • Full Light & Dark Mode Support • Local XAMPP & Production REST APIs
+      </div>
+    </footer>
+  </div>
+
+  <!-- PERSISTENT FLOATING AI LAUNCHER (BOTTOM-RIGHT) -->
+  <div id="floating-ai-launcher" class="floating-ai-launcher" title="Open AI Shopping Assistant">
+    <span style="font-size: 1.4rem; color: #FFFFFF; font-weight: 900;">✦</span>
+  </div>
+
+  <!-- FLOATING AI ASSISTANT DRAWER -->
+  <div id="floating-ai-drawer" class="floating-ai-drawer hidden">
+    <!-- Header -->
+    <div style="padding: 16px 20px; background: var(--color-surface-elevated); border-bottom: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--color-secondary);"></span>
+        <strong style="color: var(--color-text); font-size: 0.95rem;">ShopAI Floating Copilot</strong>
+      </div>
+      <button id="floating-ai-close" style="background: none; border: none; color: var(--color-text-secondary); font-size: 1.2rem; cursor: pointer;">✕</button>
+    </div>
+
+    <!-- Messages list -->
+    <div id="floating-chat-messages" style="flex: 1; padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: var(--color-surface);">
+      <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: 14px 14px 14px 4px; padding: 12px 14px; color: var(--color-text); font-size: 0.85rem; line-height: 1.5;">
+        <div style="color: var(--color-secondary); font-size: 0.75rem; font-weight: 700; margin-bottom: 4px;">✦ ShopAI</div>
+        <div>Hi! What are you shopping for today? Ask for recommendations, budget comparisons, or deals!</div>
+      </div>
+    </div>
+
+    <!-- Prompt chips -->
+    <div style="padding: 8px 14px; border-top: 1px solid var(--color-border); display: flex; gap: 6px; overflow-x: auto; background: var(--color-surface-elevated);">
+      <button class="glass-pill" style="font-size: 0.72rem; padding: 4px 8px;" onclick="App.sendFloatingAssistantPrompt('Find something under ₹5,000')">Under ₹5,000</button>
+      <button class="glass-pill" style="font-size: 0.72rem; padding: 4px 8px;" onclick="App.sendFloatingAssistantPrompt('Compare my wishlist')">Compare Wishlist</button>
+      <button class="glass-pill" style="font-size: 0.72rem; padding: 4px 8px;" onclick="App.sendFloatingAssistantPrompt('Find today\'s best deals')">Best Deals</button>
+    </div>
+
+    <!-- Input form -->
+    <div style="padding: 14px 16px; background: var(--color-surface); border-top: 1px solid var(--color-border);">
+      <form id="floating-chat-form" style="display: flex; gap: 8px;">
+        <input 
+          id="floating-chat-input"
+          type="text" 
+          placeholder="Ask a quick shopping question..." 
+          style="flex: 1; padding: 10px 14px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-pill); color: var(--color-text); font-size: 0.85rem; outline: none;"
+        />
+        <button type="submit" class="btn-primary" style="padding: 8px 16px; font-size: 0.82rem;">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM NAVIGATION DOCK -->
+  <nav class="mobile-bottom-nav">
+    <button class="mobile-nav-btn active glass-pill" data-view="home" style="border:none; padding: 6px 12px;">🏠 Home</button>
+    <button class="mobile-nav-btn glass-pill" data-view="discover" style="border:none; padding: 6px 12px;">🔍 Discover</button>
+    <button class="mobile-nav-btn glass-pill" data-view="assistant" style="border:none; padding: 6px 12px; color:var(--color-secondary);">✦ AI Chat</button>
+    <button class="mobile-nav-btn glass-pill" data-view="cart" style="border:none; padding: 6px 12px;">🛒 Cart</button>
+    <button class="mobile-nav-btn glass-pill" data-view="merchant" style="border:none; padding: 6px 12px;">📊 Seller</button>
+  </nav>
+
+  <!-- Hidden Image Search File Input for Multimodal Discovery -->
+  <input type="file" id="image-search-input" accept="image/*" style="display:none;" onchange="App.handleImageSearchUpload(event)" />
+
+  <!-- MODAL CONTAINER ROOTS -->
+  <div id="modal-container-root"></div>
+
+  <!-- JavaScript Modules -->
+  <script src="assets/js/vendor/three.min.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/store.js"></script>
+  <script src="assets/js/ai-engine.js"></script>
+  <script src="assets/js/analytics-charts.js"></script>
+  <script src="assets/js/portal-splash.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

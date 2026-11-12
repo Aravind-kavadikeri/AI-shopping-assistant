@@ -1,0 +1,23 @@
+{
+  "name": "ai-shopping-assistant",
+  "version": "2.4.0",
+  "description": "Autonomous AI Shopping Assistant & Retail Intelligence Web Application with Glassmorphism UI, ESP32 Smart Shelf IoT, and XAMPP/PHP/MySQL Architecture",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "ai",
+    "ecommerce",
+    "shopping-assistant",
+    "glassmorphism",
+    "esp32",
+    "iot",
+    "xampp",
+    "php",
+    "mysql"
+  ],
+  "author": "Team TechBees",
+  "license": "MIT"
+}
