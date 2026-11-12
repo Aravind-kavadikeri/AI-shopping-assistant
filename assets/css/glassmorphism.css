@@ -206,15 +206,18 @@ input, select, textarea, button {
   background: transparent;
   border: 1px solid transparent;
   color: var(--color-text-secondary);
-  padding: 9px 18px;
+  height: 38px;
+  padding: 0 16px;
   border-radius: var(--radius-pill);
-  font-size: 0.92rem;
+  font-size: 0.90rem;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition-fast);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
+  box-sizing: border-box;
 }
 
 .nav-btn:hover {
@@ -268,14 +271,88 @@ input, select, textarea, button {
   font-weight: 800;
 }
 
-/* ── Navbar right-side action buttons: uniform height & flex alignment ── */
-.navbar-floating > div:last-child {
+/* ── Brand Logo Button (Project Name removed as requested) ── */
+.nav-brand-logo-btn {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 12px;
+  background: rgba(18, 61, 70, 0.9);
+  border: 1.5px solid var(--color-secondary);
+  padding: 8px;
+  flex-shrink: 0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.navbar-floating .glass-pill,
-.navbar-floating .theme-toggle-btn,
-.navbar-floating .btn-accent {
+.nav-brand-logo-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 12px rgba(22, 140, 145, 0.35);
+}
+
+/* ── Navbar right-side action buttons: uniform height & flex alignment ── */
+.navbar-actions-cluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Circular Icon Action Buttons (Compare, Wishlist, Notifications, Avatar) */
+.nav-icon-btn {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.nav-icon-btn:hover {
+  background: var(--color-surface);
+  border-color: var(--color-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Badge for Cart, Compare, Wishlist, Notifications */
+.nav-icon-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--color-accent);
+  color: #FFFFFF;
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 1;
+  padding: 2px 5px;
+  border-radius: 99px;
+  border: 1.5px solid var(--color-surface);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.navbar-actions-cluster .glass-pill,
+.navbar-actions-cluster .theme-toggle-btn,
+.navbar-actions-cluster .btn-accent,
+.navbar-actions-cluster select {
+  height: 38px;
+  line-height: 38px;
+  box-sizing: border-box;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -284,8 +361,8 @@ input, select, textarea, button {
 
 /* Make navbar a bit wider / more spacious */
 .navbar-floating {
-  padding-left: 36px;
-  padding-right: 36px;
+  padding-left: 28px;
+  padding-right: 28px;
 }
 
 /* ==========================================================================

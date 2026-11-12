@@ -2133,7 +2133,7 @@ const App = {
         return true;
       });
 
-      const categories = ['All', 'Electronics', 'Outdoor Gear', 'Laptops & Computers', 'Footwear', 'Bags & Accessories', 'Wearables', 'Smart Living'];
+      const categories = ['All', 'Electronics', 'Fashion & Apparel', 'Toys & Gaming', 'Laptops & Computers', 'Footwear', 'Outdoor Gear', 'Bags & Accessories', 'Wearables', 'Smart Living'];
 
       return `
         <div style="margin-bottom: 40px;">
@@ -3424,7 +3424,7 @@ const App = {
             <div style="margin-bottom: 18px;">
               <label style="display: block; font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 8px;">Preferred Categories (Weights Category Affinity 35%)</label>
               <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                ${['Electronics', 'Outdoor Gear', 'Laptops & Computers', 'Footwear', 'Bags & Accessories', 'Wearables', 'Smart Living'].map(c => `
+                ${['Electronics', 'Fashion & Apparel', 'Toys & Gaming', 'Laptops & Computers', 'Footwear', 'Outdoor Gear', 'Bags & Accessories', 'Wearables', 'Smart Living'].map(c => `
                   <button type="button" class="glass-pill ${u.preferences.categories.includes(c) ? 'active' : ''}" onclick="App.toggleProfileCategory('${c}')">${c}</button>
                 `).join('')}
               </div>

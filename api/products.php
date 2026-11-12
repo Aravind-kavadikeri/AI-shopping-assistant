@@ -8,8 +8,10 @@ require_once __DIR__ . '/config.php';
 
 $pdo = getDBConnection();
 
+$reqMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+
 // Handle POST actions (Log Product View / Restock Product)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($reqMethod === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true) ?: $_POST;
     $action = $input['action'] ?? '';
 
@@ -144,11 +146,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fallback catalog if MySQL is offline or initializing
-$defaultProducts = [
-    [
-        'id' => 1,
-        'name' => 'Apex Pro ANC Wireless Headphones',
+// Fallback catalog if MySQL is offline or initializing (auto-loaded from catalog_embeddings.json)
+$defaultProducts = [];
+$catalogFile = __DIR__ . '/../database/catalog_embeddings.json';
+if (file_exists($catalogFile)) {
+    $rawEmbedCatalog = json_decode(file_get_contents($catalogFile), true);
+    if (is_array($rawEmbedCatalog) && !empty($rawEmbedCatalog)) {
+        $defaultProducts = array_map(function($item) {
+            return [
+                'id' => (int)$item['id'],
+                'name' => $item['name'],
+                'category' => $item['category'],
+                'price' => (float)$item['price'],
+                'original_price' => (float)($item['originalPrice'] ?? ($item['price'] * 1.35)),
+                'rating' => (float)($item['rating'] ?? 4.8),
+                'reviews_count' => (int)($item['reviewsCount'] ?? 100),
+                'stock' => (int)($item['stock'] ?? 30),
+                'views_count' => (int)($item['viewsCount'] ?? 200),
+                'image_url' => $item['imageUrl'] ?? ($item['image_url'] ?? ''),
+                'description' => $item['description'] ?? '',
+                'features' => $item['features'] ?? [],
+                'specs' => $item['specs'] ?? [],
+                'tags' => $item['tags'] ?? '',
+                'ai_score' => (int)($item['aiScore'] ?? 92),
+                'ai_reason' => $item['aiReason'] ?? 'Top rated in category with balanced price-to-performance ratio.',
+                'pros' => $item['pros'] ?? ['Precision engineered build quality', 'Highly rated by verified buyers'],
+                'cons' => $item['cons'] ?? ['High demand item'],
+                'best_use_case' => $item['bestUseCase'] ?? 'Everyday lifestyle & professional productivity'
+            ];
+        }, $rawEmbedCatalog);
+    }
+}
+if (empty($defaultProducts)) {
+    $defaultProducts = [
+        [
+            'id' => 1,
+            'name' => 'Apex Pro ANC Wireless Headphones',
         'category' => 'Electronics',
         'price' => 4999.00,
         'original_price' => 7999.00,
@@ -315,6 +348,7 @@ $defaultProducts = [
         'best_use_case' => 'Outdoor picnics, pool parties & adventure travel'
     ]
 ];
+}
 
 $products = $defaultProducts;
 

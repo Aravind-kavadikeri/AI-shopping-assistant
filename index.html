@@ -54,12 +54,9 @@
     
     <!-- NAVIGATION BAR -->
     <header class="navbar-floating">
-      <!-- Brand Identity — Text only, logo on left -->
-      <a href="#" data-view="home" style="text-decoration: none; display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
-        <div style="display: flex; flex-direction: column;">
-          <span class="nav-brand-title">AI <span style="font-weight: 500; font-size: 1.12rem; color: var(--color-text);">SHOPPING</span> <span class="nav-brand-accent">ASSISTANT</span></span>
-          <span style="font-size: 0.65rem; color: var(--color-text-secondary); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; line-height: 1;">Shopping, Reimagined by AI</span>
-        </div>
+      <!-- Brand Logo on Left (Project name removed as requested) -->
+      <a href="#" data-view="home" class="nav-brand-logo-btn" title="AI Shopping Assistant - Home">
+        <img src="assets/images/logo.svg" alt="Logo" style="width: 22px; height: 22px; object-fit: contain; display: block;" />
       </a>
 
       <!-- Desktop Dynamic Nav Links -->
@@ -72,11 +69,11 @@
         <li><button class="nav-btn" data-view="merchant">Dashboard</button></li>
       </ul>
 
-      <!-- Right Header Actions (Theme Switcher, Language, Persona, Compare, Wishlist, Cart, Notifs, Auth) -->
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <!-- Right Header Actions Cluster (Neatly Aligned & Oriented Icons) -->
+      <div class="navbar-actions-cluster">
         <!-- Language Selector -->
-        <div id="navbar-lang-container" style="display: inline-flex; align-items: center; gap: 4px;">
-          <select class="lang-selector-select glass-pill" onchange="if(window.I18n) I18n.setLanguage(this.value)" style="border-radius:var(--radius-pill); padding:5px 10px; font-size:0.8rem; font-weight:600; background:var(--color-surface-elevated); color:var(--color-text); border:1px solid var(--color-border); cursor:pointer; outline:none;" title="Select Preferred Language">
+        <div id="navbar-lang-container" style="display: inline-flex; align-items: center;">
+          <select class="lang-selector-select glass-pill" onchange="if(window.I18n) I18n.setLanguage(this.value)" style="height: 38px; border-radius: var(--radius-pill); padding: 0 12px; font-size: 0.8rem; font-weight: 600; background: var(--color-surface-elevated); color: var(--color-text); border: 1px solid var(--color-border); cursor: pointer; outline: none;" title="Select Preferred Language">
             <option value="en">English</option>
             <option value="kn">ಕನ್ನಡ (Kannada)</option>
             <option value="hi">हिन्दी (Hindi)</option>
@@ -87,42 +84,42 @@
         </div>
 
         <!-- Theme Toggle Switcher -->
-        <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="App.toggleTheme()" title="Toggle Light / Dark Theme">
+        <button id="theme-toggle-btn" class="theme-toggle-btn" onclick="App.toggleTheme()" title="Toggle Light / Dark Theme" style="height: 38px; padding: 0 12px; border-radius: var(--radius-pill); font-size: 0.82rem; font-weight: 600;">
           <span id="theme-toggle-icon">🌙</span>
           <span id="theme-toggle-text">Dark</span>
         </button>
 
         <!-- Persona Badge Button -->
-        <button id="role-toggle-btn" class="glass-pill" style="font-size: 0.78rem; font-weight: 700;" onclick="App.openAuthModal()" title="Active Shopper Persona - Click to Switch Profile">
+        <button id="role-toggle-btn" class="glass-pill" style="height: 38px; padding: 0 14px; font-size: 0.78rem; font-weight: 700; border-radius: var(--radius-pill);" onclick="App.openAuthModal()" title="Active Shopper Persona - Click to Switch Profile">
           <span id="role-toggle-label">🎓 Student Dev</span>
         </button>
 
         <!-- Compare Icon Button -->
-        <button id="navbar-compare-btn" class="glass-pill" data-view="compare" title="Product Comparison" style="position: relative;">
+        <button id="navbar-compare-btn" class="nav-icon-btn" data-view="compare" title="Product Comparison">
           <span>⚖️</span>
-          <span id="navbar-compare-count" style="display:none; background:var(--color-secondary); color:#fff; font-size:0.7rem; font-weight:700; padding:1px 6px; border-radius:99px; margin-left:2px;">0</span>
+          <span id="navbar-compare-count" class="nav-icon-badge" style="display:none; background:var(--color-secondary);">0</span>
         </button>
 
         <!-- Wishlist Icon Button -->
-        <button id="navbar-wishlist-btn" class="glass-pill" data-view="profile" title="Saved Wishlist" style="position: relative;">
-          <span style="color: var(--color-accent);">♥</span>
-          <span id="navbar-wishlist-count" style="display:none; background:var(--color-accent); color:#fff; font-size:0.7rem; font-weight:700; padding:1px 6px; border-radius:99px; margin-left:2px;">0</span>
+        <button id="navbar-wishlist-btn" class="nav-icon-btn" data-view="profile" title="Saved Wishlist">
+          <span style="color: var(--color-accent); font-size: 1.1rem; line-height: 1;">♥</span>
+          <span id="navbar-wishlist-count" class="nav-icon-badge" style="display:none; background:var(--color-accent);">0</span>
         </button>
 
         <!-- Cart Icon Button -->
-        <button id="navbar-cart-btn" class="btn-accent" data-view="cart" style="padding: 8px 16px; font-size: 0.88rem; position: relative;">
+        <button id="navbar-cart-btn" class="btn-accent" data-view="cart" style="height: 38px; padding: 0 16px; font-size: 0.86rem; border-radius: var(--radius-pill); position: relative;" title="Shopping Cart">
           <span>🛒 Cart</span>
           <span id="navbar-cart-count" style="display:none; background:#FFFFFF; color:var(--color-accent); font-size:0.75rem; font-weight:800; padding:2px 7px; border-radius:99px; margin-left:4px;">0</span>
         </button>
 
         <!-- Notifications Button -->
-        <button id="navbar-notif-btn" class="glass-pill" onclick="App.openNotificationsDrawer()" title="AI Notifications & Price Drops" style="position: relative;">
+        <button id="navbar-notif-btn" class="nav-icon-btn" onclick="App.openNotificationsDrawer()" title="AI Notifications & Price Drops">
           <span>🔔</span>
-          <span id="navbar-notif-count" style="background:var(--color-accent); color:#fff; font-size:0.7rem; font-weight:700; padding:1px 6px; border-radius:99px; margin-left:2px;">2</span>
+          <span id="navbar-notif-count" class="nav-icon-badge">2</span>
         </button>
 
         <!-- User Profile Avatar & Login Trigger -->
-        <div id="user-avatar-btn" onclick="App.openAuthModal()" style="cursor: pointer; width: 36px; height: 36px; border-radius: 50%; background: var(--color-primary); display: flex; align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 700; color: #fff; border: 1.5px solid var(--color-border);" title="Sign In / Register / User Profiling">
+        <div id="user-avatar-btn" onclick="App.openAuthModal()" class="nav-icon-btn" style="cursor: pointer; background: var(--color-primary); font-size: 0.82rem; font-weight: 700; color: #fff; border: 1.5px solid var(--color-border);" title="Sign In / Register / User Profiling">
           AS
         </div>
       </div>
