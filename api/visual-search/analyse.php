@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $input = json_decode(file_get_contents('php://input'), true) ?: $_POST;
-$fileData = $_FILES['image'] ?? ($input['image'] ?? ($input['image_base64'] ?? null));
+$fileData = $_FILES['image'] ?? ($input['image'] ?? ($input['image_base64'] ?? ($input['image_data'] ?? null)));
 $language = trim($input['language'] ?? ($_SESSION['preferred_language'] ?? 'en'));
 
 if (!$fileData) {

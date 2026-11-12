@@ -154,7 +154,7 @@ foreach ($allProducts as $p) {
     $reasons = [];
     if ($categoryWeight >= 30) $reasons[] = "Direct category match for $cat";
     if ($budget !== null && $price <= $budget) $reasons[] = "Within ₹" . number_format($budget) . " budget cap";
-    if ($rating >= 4.7) $reasons[] = "High verified rating ($rating★)";
+    if ($rating >= 4.7) $reasons[] = "High verified rating ({$rating}★)";
     if ($tokenMatches > 0) $reasons[] = "Matches key requested specs";
 
     $p['ai_score'] = $finalScore;
@@ -220,7 +220,7 @@ if ($intent === 'review_intelligence' && $firstPick) {
 } else {
     // Standard conversational reply with context awareness
     $contextMsg = "";
-    if ($context['last_category'] && $targetCategory === $context['last_category']) {
+    if (!empty($context['last_category']) && $targetCategory === $context['last_category']) {
         $contextMsg = "Continuing with our " . $targetCategory . " search";
     } else {
         $contextMsg = "I synthesized your request across our real-time catalog";
