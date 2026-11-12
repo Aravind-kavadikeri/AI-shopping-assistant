@@ -885,25 +885,17 @@ input, select, textarea, button {
   }
 }
 
-/* Authentication Gate Layout */
+/* Authentication Gate Layout — Clean Minimalist Card */
 .auth-gate-card {
-  max-width: 960px;
+  max-width: 440px;
   width: 100%;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
   border: 1px solid var(--color-border);
-  display: grid;
-  grid-template-columns: 1fr 1.25fr;
   margin: 30px auto;
   background: var(--color-surface);
   transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
-}
-
-@media (max-width: 860px) {
-  .auth-gate-card {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ==========================================================

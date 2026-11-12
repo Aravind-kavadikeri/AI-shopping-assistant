@@ -222,123 +222,67 @@ const App = {
     }
   },
 
-  // Authentication Modal Portal
+  // Authentication Modal Portal (Clean & Minimalist)
   openAuthModal() {
     const existing = document.getElementById('auth-modal');
     if (existing) existing.remove();
 
-    const isCustomer = Store.user.role === 'customer';
+    const isMerchant = Store.user && Store.user.role === 'merchant';
 
     const modal = document.createElement('div');
     modal.id = 'auth-modal';
     modal.className = 'modal-overlay';
 
     modal.innerHTML = `
-      <div class="modal-content" style="max-width: 500px; padding: 0;">
+      <div class="modal-content" style="max-width: 440px; padding: 0; border-radius: var(--radius-lg); overflow: hidden; background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-xl);">
+        <!-- Header -->
         <div style="padding: 18px 22px; border-bottom: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; background: var(--color-surface-elevated);">
           <div style="display: flex; align-items: center; gap: 10px;">
             <div style="width: 32px; height: 32px; border-radius: 8px; background: var(--color-primary); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-weight: 800; font-size: 0.9rem;">✦</div>
-            <strong style="color: var(--color-text); font-size: 1.05rem;">Authentication & Persona Switcher</strong>
+            <strong style="color: var(--color-text); font-size: 1rem;">Account & Profile</strong>
           </div>
-          <button onclick="document.getElementById('auth-modal').remove()" style="background: none; border: none; color: var(--color-text-secondary); font-size: 1.3rem; cursor: pointer; padding: 4px;">✕</button>
+          <button onclick="document.getElementById('auth-modal').remove()" style="background: none; border: none; color: var(--color-text-secondary); font-size: 1.2rem; cursor: pointer; padding: 4px;">✕</button>
         </div>
 
-        <div style="padding: 24px; overflow-y: auto;">
+        <div style="padding: 24px;">
           <!-- Active User Badge -->
-          <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; align-items: center; gap: 12px;">
-              <div style="width: 42px; height: 42px; border-radius: 50%; background: var(--color-primary); display: flex; align-items: center; justify-content: center; font-weight: 800; color: #FFFFFF;">
+              <div style="width: 42px; height: 42px; border-radius: 50%; background: ${isMerchant ? 'var(--color-warning)' : 'var(--color-primary)'}; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #FFFFFF; font-size: 0.95rem;">
                 ${(Store.user.name || 'User').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
               </div>
               <div>
                 <div style="color: var(--color-text); font-weight: 700; font-size: 0.92rem;">${Store.user.name}</div>
-                <div style="color: var(--color-text-secondary); font-size: 0.78rem;">${Store.user.email} • <span style="color:var(--color-secondary); font-weight:700;">${Store.user.role.toUpperCase()}</span></div>
+                <div style="color: var(--color-text-secondary); font-size: 0.76rem;">
+                  <span class="glass-pill active" style="font-size:0.65rem; padding: 1px 6px; margin-right: 4px; color:${isMerchant ? 'var(--color-warning)' : 'var(--color-secondary)'}; border-color:${isMerchant ? 'var(--color-warning)' : 'var(--color-secondary)'};">
+                    ${isMerchant ? 'ADMIN' : 'CUSTOMER'}
+                  </span>
+                  ${Store.user.email}
+                </div>
               </div>
             </div>
             <button class="btn-outline" style="font-size: 0.75rem; padding: 6px 12px;" onclick="App.handleLogout()">Logout</button>
           </div>
 
-          <!-- 4 Authentic Grounded Personas -->
-          <div style="margin-bottom: 22px;">
-            <div style="color: var(--color-secondary); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">
-              ⚡ 1-Click Grounded Personas Evaluation
+          <!-- Quick Account Switching -->
+          <div style="margin-bottom: 20px;">
+            <div style="color: var(--color-text-secondary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
+              Switch Role / Profile
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-              <button type="button" class="glass-pill ${Store.user.key === 'aravind' ? 'active' : ''}" style="padding: 10px 12px; justify-content: flex-start; text-align: left;" onclick="App.quickDemoLogin('aravind')">
-                <div>
-                  <div style="font-weight: 700; color: var(--color-text);">🎓 Aravind Sharma</div>
-                  <div style="font-size: 0.7rem; color: var(--color-text-secondary);">Student Dev (₹75k)</div>
-                </div>
+              <button type="button" class="glass-pill ${Store.user.key === 'aravind' ? 'active' : ''}" style="padding: 10px; justify-content: center; font-size: 0.82rem; font-weight: 600;" onclick="App.quickDemoLogin('aravind')">
+                👤 Customer (Aravind)
               </button>
-
-              <button type="button" class="glass-pill ${Store.user.key === 'priya' ? 'active' : ''}" style="padding: 10px 12px; justify-content: flex-start; text-align: left;" onclick="App.quickDemoLogin('priya')">
-                <div>
-                  <div style="font-weight: 700; color: var(--color-text);">🏃‍♀️ Priya Patel</div>
-                  <div style="font-size: 0.7rem; color: var(--color-text-secondary);">Marathon Athlete (₹35k)</div>
-                </div>
-              </button>
-
-              <button type="button" class="glass-pill ${Store.user.key === 'vikram' ? 'active' : ''}" style="padding: 10px 12px; justify-content: flex-start; text-align: left;" onclick="App.quickDemoLogin('vikram')">
-                <div>
-                  <div style="font-weight: 700; color: var(--color-text);">🎨 Vikramaditya Roy</div>
-                  <div style="font-size: 0.7rem; color: var(--color-text-secondary);">Creative Director (₹1.8L)</div>
-                </div>
-              </button>
-
-              <button type="button" class="glass-pill ${Store.user.key === 'rajesh' ? 'active' : ''}" style="padding: 10px 12px; justify-content: flex-start; text-align: left;" onclick="App.quickDemoLogin('rajesh')">
-                <div>
-                  <div style="font-weight: 700; color: var(--color-text);">🏪 Rajesh Menon</div>
-                  <div style="font-size: 0.7rem; color: var(--color-text-secondary);">Merchant Operations Admin</div>
-                </div>
+              <button type="button" class="glass-pill ${Store.user.key === 'rajesh' ? 'active' : ''}" style="padding: 10px; justify-content: center; font-size: 0.82rem; font-weight: 600;" onclick="App.quickDemoLogin('rajesh')">
+                🛡️ Admin (Rajesh)
               </button>
             </div>
           </div>
 
-          <!-- Auth Tabs -->
-          <div style="display: flex; gap: 8px; border-bottom: 1px solid var(--color-border); margin-bottom: 18px; padding-bottom: 8px;">
-            <button id="auth-tab-login" class="btn-outline active" style="font-size: 0.85rem; padding: 6px 16px;" onclick="App.switchAuthTab('login')">Sign In</button>
-            <button id="auth-tab-register" class="btn-outline" style="font-size: 0.85rem; padding: 6px 16px;" onclick="App.switchAuthTab('register')">Register</button>
-          </div>
-
-          <div id="auth-error-msg" style="display: none; padding: 10px; border-radius: var(--radius-sm); background: rgba(217, 75, 75, 0.1); border: 1px solid var(--color-error); color: var(--color-error); font-size: 0.8rem; margin-bottom: 14px;"></div>
-
-          <!-- Login Form -->
-          <form id="auth-login-form" onsubmit="App.handleLoginForm(event)">
-            <div style="margin-bottom: 14px;">
-              <label style="display: block; font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 6px; font-weight: 500;">Email or Username</label>
-              <input id="auth-login-identifier" type="text" required placeholder="e.g. aravind@example.com" value="aravind@example.com" style="width: 100%; padding: 10px 14px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.9rem; outline: none;" />
-            </div>
-
-            <div style="margin-bottom: 18px;">
-              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
-                <label style="font-size: 0.82rem; color: var(--color-text-secondary); font-weight: 500;">Password</label>
-                <button type="button" onclick="App.togglePasswordVisibility('auth-login-password')" style="background:none; border:none; color:var(--color-secondary); font-size:0.75rem; cursor:pointer;">Show/Hide</button>
-              </div>
-              <input id="auth-login-password" type="password" required placeholder="••••••••" value="password123" style="width: 100%; padding: 10px 14px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.9rem; outline: none;" />
-            </div>
-
-            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;">Sign In to ShopAI</button>
-          </form>
-
-          <!-- Register Form -->
-          <form id="auth-register-form" style="display: none;" onsubmit="App.handleRegisterForm(event)">
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 6px;">Full Name</label>
-              <input id="auth-reg-name" type="text" required placeholder="Full Name" style="width: 100%; padding: 10px 14px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.9rem;" />
-            </div>
-
-            <div style="margin-bottom: 12px;">
-              <label style="display: block; font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 6px;">Email Address</label>
-              <input id="auth-reg-email" type="email" required placeholder="email@example.com" style="width: 100%; padding: 10px 14px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.9rem;" />
-            </div>
-
-            <div style="margin-bottom: 18px;">
-              <label style="display: block; font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 6px;">Password</label>
-              <input id="auth-reg-password" type="password" required placeholder="Min 6 characters" style="width: 100%; padding: 10px 14px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.9rem;" />
-            </div>
-
-            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px;">Create Account</button>
-          </form>
+          <!-- Destination Navigation Button -->
+          <button class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.88rem; font-weight: 700;" onclick="document.getElementById('auth-modal').remove(); App.navigate('${isMerchant ? 'merchant' : 'profile'}')">
+            <span>${isMerchant ? 'Open Admin Command Center ➔' : 'View Orders & Profile ➔'}</span>
+          </button>
         </div>
       </div>
     `;
@@ -477,61 +421,131 @@ const App = {
     this.navigate('auth');
   },
 
-  // 1-Click Fast-Track Evaluator Login on Authentication Gateway
-  quickGateLogin(profileKey) {
-    const user = Store.switchProfile(profileKey);
-    if (user) {
-      Store.isAuthenticated = true;
-      try {
-        sessionStorage.setItem('shopai_authenticated', 'true');
-      } catch (e) {}
-      Store.showToast(`Signed in as ${user.name} (${user.badge}). Welcome to ShopAI!`, "success");
-      this.renderNavbarLinks();
-      if (user.role === 'merchant') {
-        this.navigate('merchant');
-      } else {
-        this.navigate('home');
+  currentAuthRole: 'customer',
+
+  setAuthRole(role) {
+    this.currentAuthRole = role;
+    const isCust = (role !== 'admin');
+    const custBtn = document.getElementById('auth-role-customer');
+    const adminBtn = document.getElementById('auth-role-admin');
+    const custTabs = document.getElementById('auth-customer-tabs');
+    const idInput = document.getElementById('auth-identifier') || document.getElementById('gate-login-id') || document.getElementById('admin-login-id');
+    const pwInput = document.getElementById('auth-password') || document.getElementById('gate-login-pw') || document.getElementById('admin-login-pw');
+    const submitBtn = document.getElementById('auth-submit-btn');
+    const roleHint = document.getElementById('auth-role-hint');
+    const subtitle = document.getElementById('auth-header-subtitle');
+    const alertBox = document.getElementById('auth-alert-box');
+    if (alertBox) alertBox.style.display = 'none';
+
+    if (role === 'admin') {
+      if (custBtn) {
+        custBtn.className = 'btn-outline';
+        custBtn.style.border = 'none';
+        custBtn.style.background = 'transparent';
+        custBtn.style.color = 'var(--color-text-secondary)';
+      }
+      if (adminBtn) {
+        adminBtn.className = 'btn-primary';
+        adminBtn.style.border = 'none';
+        adminBtn.style.background = 'var(--color-primary)';
+        adminBtn.style.color = '#FFFFFF';
+      }
+      if (custTabs) custTabs.style.display = 'none';
+      const regForm = document.getElementById('auth-register-form');
+      const signinForm = document.getElementById('auth-signin-form');
+      if (regForm) regForm.style.display = 'none';
+      if (signinForm) signinForm.style.display = 'block';
+
+      if (idInput) {
+        idInput.value = 'rajesh';
+        idInput.placeholder = 'Admin username (e.g. rajesh or admin)';
+      }
+      if (pwInput) {
+        pwInput.value = 'password123';
+      }
+      if (submitBtn) {
+        submitBtn.innerHTML = 'Sign In as Administrator ➔';
+      }
+      if (roleHint) {
+        roleHint.textContent = 'Administrator Access';
+      }
+      if (subtitle) {
+        subtitle.textContent = 'Sign in to Merchant Command Center';
+      }
+    } else {
+      if (custBtn) {
+        custBtn.className = 'btn-primary';
+        custBtn.style.border = 'none';
+        custBtn.style.background = 'var(--color-primary)';
+        custBtn.style.color = '#FFFFFF';
+      }
+      if (adminBtn) {
+        adminBtn.className = 'btn-outline';
+        adminBtn.style.border = 'none';
+        adminBtn.style.background = 'transparent';
+        adminBtn.style.color = 'var(--color-text-secondary)';
+      }
+      if (custTabs) custTabs.style.display = 'flex';
+      this.setAuthMode('signin');
+      if (idInput) {
+        idInput.value = 'aravind';
+        idInput.placeholder = 'Customer username or email';
+      }
+      if (pwInput) {
+        pwInput.value = 'password123';
+      }
+      if (submitBtn) {
+        submitBtn.innerHTML = 'Sign In as Customer ➔';
+      }
+      if (roleHint) {
+        roleHint.textContent = 'Customer Account';
+      }
+      if (subtitle) {
+        subtitle.textContent = 'Sign in to access your intelligent shopping space';
       }
     }
   },
 
-  switchGateAuthTab(tab) {
-    const signinPanel = document.getElementById('gate-signin-panel');
-    const registerPanel = document.getElementById('gate-register-panel');
-    const tabSignin = document.getElementById('gate-tab-signin');
-    const tabRegister = document.getElementById('gate-tab-register');
+  setAuthMode(mode) {
+    const signinForm = document.getElementById('auth-signin-form');
+    const regForm = document.getElementById('auth-register-form');
+    const tabSignin = document.getElementById('auth-tab-signin');
+    const tabReg = document.getElementById('auth-tab-register');
+    const alertBox = document.getElementById('auth-alert-box');
+    if (alertBox) alertBox.style.display = 'none';
 
-    if (tab === 'signin') {
-      if (signinPanel) signinPanel.style.display = 'block';
-      if (registerPanel) registerPanel.style.display = 'none';
+    if (mode === 'signin') {
+      if (signinForm) signinForm.style.display = 'block';
+      if (regForm) regForm.style.display = 'none';
       if (tabSignin) tabSignin.classList.add('active');
-      if (tabRegister) tabRegister.classList.remove('active');
+      if (tabReg) tabReg.classList.remove('active');
     } else {
-      if (signinPanel) signinPanel.style.display = 'none';
-      if (registerPanel) registerPanel.style.display = 'block';
+      if (signinForm) signinForm.style.display = 'none';
+      if (regForm) regForm.style.display = 'block';
       if (tabSignin) tabSignin.classList.remove('active');
-      if (tabRegister) tabRegister.classList.add('active');
+      if (tabReg) tabReg.classList.add('active');
     }
   },
 
-  fillGateCredentials(identifier, password) {
-    const idInput = document.getElementById('gate-login-id');
-    const pwInput = document.getElementById('gate-login-pw');
-    if (idInput) {
-      idInput.value = identifier;
-      idInput.style.borderColor = 'var(--color-secondary)';
-    }
-    if (pwInput) {
-      pwInput.value = password;
-      pwInput.style.borderColor = 'var(--color-secondary)';
-    }
-  },
-
-  async handleGateLogin(e) {
-    e.preventDefault();
-    const identifier = (document.getElementById('gate-login-id')?.value || '').trim();
-    const password = document.getElementById('gate-login-pw')?.value || '';
-    const alertBox = document.getElementById('gate-login-alert');
+  async handleAuthSubmit(e) {
+    if (e) e.preventDefault();
+    const identifier = (
+      document.getElementById('auth-identifier')?.value || 
+      document.getElementById('gate-login-id')?.value || 
+      document.getElementById('admin-login-id')?.value || ''
+    ).trim();
+    const password = (
+      document.getElementById('auth-password')?.value || 
+      document.getElementById('gate-login-pw')?.value || 
+      document.getElementById('admin-login-pw')?.value || ''
+    );
+    const alertBox = document.getElementById('auth-alert-box') || document.getElementById('gate-login-alert') || document.getElementById('admin-login-alert');
+    const isTargetAdmin = (
+      this.currentAuthRole === 'admin' || 
+      identifier.toLowerCase().includes('rajesh') || 
+      identifier.toLowerCase().includes('admin') || 
+      identifier.toLowerCase().includes('merchant')
+    );
 
     if (!identifier || !password) {
       if (alertBox) {
@@ -550,11 +564,16 @@ const App = {
       const data = await res.json();
       if (res.ok && data.status === 'success') {
         Store.authenticate(data.user);
-        Store.showToast(`Welcome back, ${data.user.name}!`, "success");
-        this.renderNavbarLinks();
+        const modal = document.getElementById('auth-modal');
+        if (modal) modal.remove();
+
         if (data.user.role === 'merchant') {
+          Store.showToast(`Welcome to Administrator Command Center, ${data.user.name}!`, "success");
+          this.renderNavbarLinks();
           this.navigate('merchant');
         } else {
+          Store.showToast(`Welcome back, ${data.user.name}!`, "success");
+          this.renderNavbarLinks();
           this.navigate('home');
         }
         return;
@@ -562,101 +581,51 @@ const App = {
         // Fallback for offline demo matching
         const identLower = identifier.toLowerCase();
         let fallbackKey = null;
-        if (identLower.includes('aravind')) fallbackKey = 'aravind';
-        else if (identLower.includes('priya')) fallbackKey = 'priya';
-        else if (identLower.includes('vikram')) fallbackKey = 'vikram';
-        else if (identLower.includes('rajesh') || identLower.includes('admin') || identLower.includes('merchant')) fallbackKey = 'rajesh';
+        if (identLower.includes('rajesh') || identLower.includes('admin') || identLower.includes('merchant')) {
+          fallbackKey = 'rajesh';
+        } else if (identLower.includes('aravind')) {
+          fallbackKey = 'aravind';
+        } else if (identLower.includes('priya')) {
+          fallbackKey = 'priya';
+        } else if (identLower.includes('vikram')) {
+          fallbackKey = 'vikram';
+        }
 
         if (fallbackKey && (password === 'password123' || password === 'admin123')) {
-          this.quickGateLogin(fallbackKey);
+          this.quickDemoLogin(fallbackKey);
           return;
         }
 
         if (alertBox) {
-          alertBox.textContent = data.message || 'Invalid credentials. Please check username or password.';
+          alertBox.textContent = data.message || 'Invalid credentials. Please verify your details.';
           alertBox.style.display = 'block';
         }
       }
     } catch (err) {
       // Offline fallback
       const identLower = identifier.toLowerCase();
-      let fallbackKey = null;
-      if (identLower.includes('aravind')) fallbackKey = 'aravind';
-      else if (identLower.includes('priya')) fallbackKey = 'priya';
-      else if (identLower.includes('vikram')) fallbackKey = 'vikram';
-      else if (identLower.includes('rajesh') || identLower.includes('admin') || identLower.includes('merchant')) fallbackKey = 'rajesh';
+      let fallbackKey = (identLower.includes('rajesh') || identLower.includes('admin') || isTargetAdmin) ? 'rajesh' : 'aravind';
+      if (identLower.includes('priya')) fallbackKey = 'priya';
+      if (identLower.includes('vikram')) fallbackKey = 'vikram';
 
-      if (fallbackKey && (password === 'password123' || password === 'admin123')) {
-        this.quickGateLogin(fallbackKey);
-        return;
-      }
-
-      if (alertBox) {
-        alertBox.textContent = 'Connection error. Use 1-Click Personas above for instant evaluation access.';
+      if (password === 'password123' || password === 'admin123') {
+        this.quickDemoLogin(fallbackKey);
+      } else if (alertBox) {
+        alertBox.textContent = 'Invalid credentials. Use password123 or select a demo account.';
         alertBox.style.display = 'block';
       }
     }
   },
 
-  async handleGateRegister(e) {
-    e.preventDefault();
-    const name = (document.getElementById('gate-reg-name')?.value || '').trim();
-    const username = (document.getElementById('gate-reg-user')?.value || '').trim();
-    const email = (document.getElementById('gate-reg-email')?.value || '').trim();
-    const password = document.getElementById('gate-reg-pw')?.value || '';
-    const category = document.getElementById('gate-reg-cat')?.value || 'Electronics';
-    const budgetCap = parseInt(document.getElementById('gate-reg-budget')?.value || 50000);
-    const alertBox = document.getElementById('gate-reg-alert');
-
-    if (!name || !username || !email || !password) {
-      if (alertBox) {
-        alertBox.textContent = 'Please fill out all registration fields.';
-        alertBox.style.display = 'block';
-      }
-      return;
-    }
-
-    try {
-      const res = await fetch(`${Store.apiBase}/register.php`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, username, email, password, category, budgetCap })
-      });
-      const data = await res.json();
-      if (res.ok && data.status === 'success') {
-        Store.authenticate(data.user);
-        Store.showToast(`Account created! Welcome to AI Shopping Assistant, ${data.user.name}.`, "success");
-        this.renderNavbarLinks();
-        this.navigate('home');
-      } else {
-        if (alertBox) {
-          alertBox.textContent = data.message || 'Registration failed. Please check inputs.';
-          alertBox.style.display = 'block';
-        }
-      }
-    } catch (err) {
-      // Local fallback account creation
-      const newUser = {
-        id: Date.now(),
-        name,
-        username,
-        email,
-        role: 'customer',
-        badge: '🛍️ Registered Shopper',
-        avatarInitials: name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase(),
-        preferences: {
-          categories: [category, 'Electronics'],
-          budgetCap: budgetCap,
-          style: 'Personalized',
-          shoppingGoal: 'Best products matching custom budget'
-        }
-      };
-      Store.authenticate(newUser);
-      Store.showToast(`Welcome to AI Shopping Assistant, ${name}! Your profile is ready.`, "success");
-      this.renderNavbarLinks();
-      this.navigate('home');
-    }
-  },
+  // Backward compatibility aliases
+  handleCustomerLogin(e) { return this.handleAuthSubmit(e); },
+  handleAdminLogin(e) { this.currentAuthRole = 'admin'; return this.handleAuthSubmit(e); },
+  switchAuthPortal(portal) { return this.setAuthRole(portal === 'admin' ? 'admin' : 'customer'); },
+  switchGateAuthTab(tab) { return this.setAuthMode(tab); },
+  handleCustomerRegister(e) { return this.handleRegisterForm(e); },
+  quickGateLogin(profileKey) { return this.quickDemoLogin(profileKey); },
+  handleGateLogin(e) { return this.handleAuthSubmit(e); },
+  handleGateRegister(e) { return this.handleRegisterForm(e); },
 
   // Full-Screen Product Details Modal with 5-Factor Weighted Score Breakdown
   openProductModal(productId) {
@@ -1871,315 +1840,126 @@ const App = {
   },
 
   views: {
-    // 0. Dedicated Authentication Gateway (Mandatory Login / Register Barrier)
+    // 0. Dedicated Authentication Gateway (Clean & Minimalist)
     auth() {
+      const isCust = (App.currentAuthRole !== 'admin');
       return `
-        <div style="min-height: calc(100vh - 180px); display: flex; align-items: center; justify-content: center; padding: 24px 0;">
-          <div class="auth-gate-card">
+        <div style="min-height: calc(100vh - 200px); display: flex; align-items: center; justify-content: center; padding: 24px 16px;">
+          <div class="auth-gate-card" style="padding: 36px 32px;">
             
-            <!-- Left Branding & Feature Showcase Column -->
-            <div style="background: linear-gradient(145deg, #102C33, #0A1C20); padding: 40px 32px; color: #FFFFFF; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
-              <div>
-                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                  <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(18, 61, 70, 0.85); border: 1.5px solid var(--color-secondary); display: flex; align-items: center; justify-content: center; padding: 6px;">
-                    <img src="assets/images/logo.svg" alt="AI Shopping Assistant Logo" style="width: 100%; height: 100%; object-fit: contain;" />
-                  </div>
-                  <div>
-                    <span style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; letter-spacing: 0.05em; color: #FFFFFF; display: block; line-height: 1.2;">
-                      AI <span style="font-weight: 400;">SHOPPING</span> <span style="color: var(--color-accent);">ASSISTANT</span>
-                    </span>
-                    <span style="display: block; font-size: 0.72rem; color: #8CA0A5; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;">Personal Intelligence Platform</span>
-                  </div>
-                </div>
+            <!-- Minimalist Brand Header -->
+            <div style="text-align: center; margin-bottom: 24px;">
+              <div style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: var(--radius-lg); background: rgba(18, 61, 70, 0.9); border: 1.5px solid var(--color-secondary); margin-bottom: 14px; box-shadow: 0 4px 14px rgba(22, 140, 145, 0.25);">
+                <img src="assets/images/logo.svg" alt="ShopAI Logo" style="width: 28px; height: 28px; object-fit: contain;" />
+              </div>
+              <h2 style="font-family: var(--font-heading); font-size: 1.45rem; font-weight: 800; color: var(--color-text); margin: 0 0 4px 0; letter-spacing: -0.01em;">
+                AI <span style="font-weight: 500;">SHOPPING</span> <span style="color: var(--color-accent);">ASSISTANT</span>
+              </h2>
+              <p id="auth-header-subtitle" style="font-size: 0.84rem; color: var(--color-text-secondary); margin: 0;">
+                ${isCust ? 'Sign in to access your intelligent shopping space' : 'Sign in to Merchant Command Center'}
+              </p>
+            </div>
 
-                <h2 style="font-size: 1.8rem; font-weight: 800; line-height: 1.22; margin-bottom: 12px; color: #FFFFFF; letter-spacing: -0.02em;">
-                  Shopping,<br><span style="color: var(--color-accent);">Reimagined</span> by AI.
-                </h2>
-                
-                <p style="font-size: 0.88rem; line-height: 1.55; color: rgba(255, 255, 255, 0.82); margin-bottom: 28px;">
-                  Please authenticate with your username and password, or create a personalized shopper account to access the store.
-                </p>
+            <!-- Role Switcher: Customer vs Administrator -->
+            <div style="display: flex; background: var(--color-surface-elevated); padding: 4px; border-radius: var(--radius-pill); border: 1px solid var(--color-border); margin-bottom: 20px;">
+              <button type="button" id="auth-role-customer" class="${isCust ? 'btn-primary' : 'btn-outline'}" style="flex: 1; border-radius: var(--radius-pill); font-size: 0.85rem; padding: 8px 12px; justify-content: center; ${isCust ? '' : 'border:none; background:transparent; color:var(--color-text-secondary);'}" onclick="App.setAuthRole('customer')">
+                👤 Customer
+              </button>
+              <button type="button" id="auth-role-admin" class="${!isCust ? 'btn-primary' : 'btn-outline'}" style="flex: 1; border-radius: var(--radius-pill); font-size: 0.85rem; padding: 8px 12px; justify-content: center; ${!isCust ? '' : 'border:none; background:transparent; color:var(--color-text-secondary);'}" onclick="App.setAuthRole('admin')">
+                🛡️ Administrator
+              </button>
+            </div>
 
-                <!-- 4 Value Proposition Highlights -->
-                <div style="display: flex; flex-direction: column; gap: 16px;">
-                  <div style="display: flex; gap: 12px; align-items: flex-start;">
-                    <div style="width: 30px; height: 30px; border-radius: 8px; background: rgba(240, 120, 97, 0.2); display: flex; align-items: center; justify-content: center; color: var(--color-accent); font-size: 0.95rem; flex-shrink: 0;">✦</div>
-                    <div>
-                      <strong style="display: block; font-size: 0.86rem; color: #FFFFFF;">Autonomous Shopping Copilot</strong>
-                      <span style="font-size: 0.76rem; color: rgba(255,255,255,0.7); line-height: 1.4; display: block;">Conversational queries, natural language constraints & contextual follow-ups.</span>
-                    </div>
-                  </div>
+            <!-- Customer Sub-Tabs: Sign In vs Register -->
+            <div id="auth-customer-tabs" style="display: ${isCust ? 'flex' : 'none'}; gap: 8px; border-bottom: 1px solid var(--color-border); margin-bottom: 20px; padding-bottom: 6px;">
+              <button id="auth-tab-signin" class="nav-btn active" style="font-size: 0.84rem; padding: 6px 14px;" onclick="App.setAuthMode('signin')">Sign In</button>
+              <button id="auth-tab-register" class="nav-btn" style="font-size: 0.84rem; padding: 6px 14px;" onclick="App.setAuthMode('register')">Create Account</button>
+            </div>
 
-                  <div style="display: flex; gap: 12px; align-items: flex-start;">
-                    <div style="width: 30px; height: 30px; border-radius: 8px; background: rgba(22, 140, 145, 0.25); display: flex; align-items: center; justify-content: center; color: #48CBD2; font-size: 0.95rem; flex-shrink: 0;">⚖️</div>
-                    <div>
-                      <strong style="display: block; font-size: 0.86rem; color: #FFFFFF;">Explainable 5-Factor Score</strong>
-                      <span style="font-size: 0.76rem; color: rgba(255,255,255,0.7); line-height: 1.4; display: block;">Category affinity, budget fit, ratings, keywords, and verified stock.</span>
-                    </div>
-                  </div>
+            <!-- Error/Alert Banner -->
+            <div id="auth-alert-box" style="display: none; padding: 10px 14px; border-radius: var(--radius-sm); background: rgba(217, 75, 75, 0.12); border: 1px solid var(--color-error); color: var(--color-error); font-size: 0.82rem; margin-bottom: 16px;"></div>
 
-                  <div style="display: flex; gap: 12px; align-items: flex-start;">
-                    <div style="width: 30px; height: 30px; border-radius: 8px; background: rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-size: 0.95rem; flex-shrink: 0;">📈</div>
-                    <div>
-                      <strong style="display: block; font-size: 0.86rem; color: #FFFFFF;">Real-Time Retail Analytics</strong>
-                      <span style="font-size: 0.76rem; color: rgba(255,255,255,0.7); line-height: 1.4; display: block;">90-day price drops, customer sentiment & operational intelligence.</span>
-                    </div>
-                  </div>
-
-                  <div style="display: flex; gap: 12px; align-items: flex-start;">
-                    <div style="width: 30px; height: 30px; border-radius: 8px; background: rgba(36, 138, 98, 0.25); display: flex; align-items: center; justify-content: center; color: #5EEAD4; font-size: 0.95rem; flex-shrink: 0;">🔒</div>
-                    <div>
-                      <strong style="display: block; font-size: 0.86rem; color: #FFFFFF;">Grounded User Personas</strong>
-                      <span style="font-size: 0.76rem; color: rgba(255,255,255,0.7); line-height: 1.4; display: block;">Secure session isolation, real profiles, zero cross-shopper data leakage.</span>
-                    </div>
-                  </div>
-                </div>
+            <!-- 1. Sign In Form (Customer & Admin) -->
+            <form id="auth-signin-form" onsubmit="App.handleAuthSubmit(event)">
+              <div style="margin-bottom: 14px;">
+                <label style="display: block; font-size: 0.82rem; color: var(--color-text); margin-bottom: 6px; font-weight: 600;">Username or Email</label>
+                <input 
+                  id="auth-identifier" 
+                  type="text" 
+                  required 
+                  placeholder="${isCust ? 'e.g. aravind or your email' : 'e.g. rajesh or admin'}" 
+                  value="${isCust ? 'aravind' : 'rajesh'}" 
+                  style="width: 100%; padding: 11px 14px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.9rem; outline: none;" 
+                />
               </div>
 
-              <!-- Security Seal -->
-              <div style="margin-top: 32px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.15); display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; color: rgba(255,255,255,0.65);">
-                <span>🛡️ Bcrypt Hashed Passwords</span>
-                <span>PHP + MySQL + Node Stack</span>
+              <div style="margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+                  <label style="font-size: 0.82rem; color: var(--color-text); font-weight: 600;">Password</label>
+                  <button type="button" onclick="App.togglePasswordVisibility('auth-password')" style="background:none; border:none; color:var(--color-secondary); font-size:0.75rem; cursor:pointer; font-weight:600;">Show/Hide</button>
+                </div>
+                <input 
+                  id="auth-password" 
+                  type="password" 
+                  required 
+                  placeholder="••••••••" 
+                  value="password123" 
+                  style="width: 100%; padding: 11px 14px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.9rem; outline: none;" 
+                />
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 0.8rem; color: var(--color-text-secondary);">
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                  <input type="checkbox" id="auth-remember" checked style="accent-color: var(--color-primary);" />
+                  <span>Remember session</span>
+                </label>
+                <span id="auth-role-hint" style="color: var(--color-secondary); font-weight: 600;">
+                  ${isCust ? 'Customer Account' : 'Merchant Admin'}
+                </span>
+              </div>
+
+              <button id="auth-submit-btn" type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.92rem; font-weight: 700;">
+                ${isCust ? 'Sign In as Customer ➔' : 'Sign In as Administrator ➔'}
+              </button>
+            </form>
+
+            <!-- 2. Register Form (Customer Mode) -->
+            <form id="auth-register-form" style="display: none;" onsubmit="App.handleRegisterForm(event)">
+              <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 0.82rem; color: var(--color-text); margin-bottom: 6px; font-weight: 600;">Full Name</label>
+                <input id="auth-reg-name" type="text" required placeholder="e.g. Maya Iyer" style="width: 100%; padding: 10px 14px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.88rem; outline: none;" />
+              </div>
+
+              <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 0.82rem; color: var(--color-text); margin-bottom: 6px; font-weight: 600;">Email Address</label>
+                <input id="auth-reg-email" type="email" required placeholder="name@example.com" style="width: 100%; padding: 10px 14px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.88rem; outline: none;" />
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 0.82rem; color: var(--color-text); margin-bottom: 6px; font-weight: 600;">Password (Min 6 characters)</label>
+                <input id="auth-reg-password" type="password" required minlength="6" placeholder="••••••••" value="password123" style="width: 100%; padding: 10px 14px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.88rem; outline: none;" />
+              </div>
+
+              <button type="submit" class="btn-accent" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.92rem; font-weight: 700;">
+                Create Customer Account ➔
+              </button>
+            </form>
+
+            <!-- Quick 1-Click Demo Shortcut Pills -->
+            <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--color-border); text-align: center;">
+              <div style="font-size: 0.72rem; color: var(--color-text-secondary); margin-bottom: 8px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">
+                ⚡ Quick Demo Logins
+              </div>
+              <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                <button type="button" class="glass-pill" style="font-size: 0.76rem; padding: 5px 12px;" onclick="App.quickDemoLogin('aravind')">
+                  👤 Customer (Aravind)
+                </button>
+                <button type="button" class="glass-pill" style="font-size: 0.76rem; padding: 5px 12px;" onclick="App.quickDemoLogin('rajesh')">
+                  🛡️ Admin (Rajesh)
+                </button>
               </div>
             </div>
 
-            <!-- Right Interactive Form Column -->
-            <div style="background: var(--color-surface); padding: 36px 32px; display: flex; flex-direction: column;">
-              
-              <!-- Fast-Track Evaluator 1-Click Persona Quick Logins -->
-              <div style="background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 22px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                  <span style="color: var(--color-secondary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;">
-                    ⚡ Evaluator Fast-Track: 1-Click Grounded Personas
-                  </span>
-                  <span style="font-size: 0.7rem; color: var(--color-text-secondary);">Direct Login</span>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                  <button type="button" class="glass-pill" style="padding: 8px 10px; justify-content: flex-start; text-align: left; width: 100%; border-radius: var(--radius-sm);" onclick="App.quickGateLogin('aravind')">
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.8rem; color: var(--color-text);">🎓 Aravind Sharma</div>
-                      <div style="font-size: 0.68rem; color: var(--color-text-secondary);">Student Dev (₹75k)</div>
-                    </div>
-                  </button>
-
-                  <button type="button" class="glass-pill" style="padding: 8px 10px; justify-content: flex-start; text-align: left; width: 100%; border-radius: var(--radius-sm);" onclick="App.quickGateLogin('priya')">
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.8rem; color: var(--color-text);">🏃‍♀️ Priya Patel</div>
-                      <div style="font-size: 0.68rem; color: var(--color-text-secondary);">Athlete (₹35k)</div>
-                    </div>
-                  </button>
-
-                  <button type="button" class="glass-pill" style="padding: 8px 10px; justify-content: flex-start; text-align: left; width: 100%; border-radius: var(--radius-sm);" onclick="App.quickGateLogin('vikram')">
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.8rem; color: var(--color-text);">🎨 Vikramaditya Roy</div>
-                      <div style="font-size: 0.68rem; color: var(--color-text-secondary);">Creative Dir (₹1.8L)</div>
-                    </div>
-                  </button>
-
-                  <button type="button" class="glass-pill" style="padding: 8px 10px; justify-content: flex-start; text-align: left; width: 100%; border-radius: var(--radius-sm);" onclick="App.quickGateLogin('rajesh')">
-                    <div>
-                      <div style="font-weight: 700; font-size: 0.8rem; color: var(--color-text);">🏪 Rajesh Menon</div>
-                      <div style="font-size: 0.68rem; color: var(--color-text-secondary);">Merchant Admin</div>
-                    </div>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Top Distinct Access Portal Selector -->
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
-                <button id="portal-tab-customer" class="btn-primary" style="padding: 10px; font-size: 0.86rem; font-weight: 700; justify-content: center;" onclick="App.switchAuthPortal('customer')">
-                  👤 Customer Portal
-                </button>
-                <button id="portal-tab-admin" class="btn-outline" style="padding: 10px; font-size: 0.86rem; font-weight: 700; justify-content: center;" onclick="App.switchAuthPortal('admin')">
-                  🛡️ Administrator Portal
-                </button>
-              </div>
-
-              <!-- ================= 1. CUSTOMER PORTAL ================= -->
-              <div id="portal-customer-card">
-                <div style="margin-bottom: 14px;">
-                  <p style="font-size: 0.82rem; color: var(--color-text-secondary); margin: 0 0 12px 0;">
-                    ${window.I18n ? I18n.t('customerDesc') : 'Discover products, get AI recommendations and manage your shopping.'}
-                  </p>
-                  
-                  <div style="display: flex; gap: 8px; border-bottom: 2px solid var(--color-border); padding-bottom: 4px;">
-                    <button id="gate-tab-signin" class="btn-outline active" style="flex: 1; justify-content: center; padding: 8px; font-size: 0.82rem; font-weight: 700;" onclick="App.switchGateAuthTab('signin')">
-                      🔑 Customer Login
-                    </button>
-                    <button id="gate-tab-register" class="btn-outline" style="flex: 1; justify-content: center; padding: 8px; font-size: 0.82rem; font-weight: 700;" onclick="App.switchGateAuthTab('register')">
-                      📝 Create Customer Account
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Customer Sign In Panel -->
-                <div id="gate-signin-panel">
-                  <div id="gate-login-alert" style="display: none; padding: 10px 14px; border-radius: var(--radius-sm); background: rgba(217, 75, 75, 0.1); border: 1px solid var(--color-error); color: var(--color-error); font-size: 0.82rem; margin-bottom: 14px;"></div>
-
-                  <form id="gate-login-form" onsubmit="App.handleCustomerLogin(event)">
-                    <div style="margin-bottom: 12px;">
-                      <label style="display: block; font-size: 0.82rem; color: var(--color-text); margin-bottom: 6px; font-weight: 600;">Username or Email Address</label>
-                      <input 
-                        id="gate-login-id" 
-                        type="text" 
-                        required 
-                        placeholder="e.g. aravind or aravind.sharma@techuni.edu" 
-                        value="aravind"
-                        style="width: 100%; padding: 10px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.88rem; outline: none;" 
-                      />
-                    </div>
-
-                    <div style="margin-bottom: 14px;">
-                      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
-                        <label style="font-size: 0.82rem; color: var(--color-text); font-weight: 600;">Password</label>
-                        <button type="button" onclick="App.togglePasswordVisibility('gate-login-pw')" style="background:none; border:none; color:var(--color-secondary); font-size:0.75rem; cursor:pointer; font-weight:600;">Show/Hide</button>
-                      </div>
-                      <input 
-                        id="gate-login-pw" 
-                        type="password" 
-                        required 
-                        placeholder="••••••••" 
-                        value="password123"
-                        style="width: 100%; padding: 10px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.88rem; outline: none;" 
-                      />
-                    </div>
-
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.8rem; color: var(--color-text-secondary);">
-                      <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
-                        <input type="checkbox" id="gate-login-remember" checked style="accent-color: var(--color-primary);" />
-                        Remember my session
-                      </label>
-                      <span style="color: var(--color-secondary);">Role: Customer</span>
-                    </div>
-
-                    <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.92rem; font-weight: 700;">
-                      Sign In to Customer Account ➔
-                    </button>
-                  </form>
-                </div>
-
-                <!-- Customer Register Panel -->
-                <div id="gate-register-panel" style="display: none;">
-                  <div id="gate-reg-alert" style="display: none; padding: 10px 14px; border-radius: var(--radius-sm); background: rgba(217, 75, 75, 0.1); border: 1px solid var(--color-error); color: var(--color-error); font-size: 0.82rem; margin-bottom: 14px;"></div>
-
-                  <form id="gate-register-form" onsubmit="App.handleCustomerRegister(event)">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
-                      <div>
-                        <label style="display: block; font-size: 0.78rem; color: var(--color-text); margin-bottom: 4px; font-weight: 600;">Full Name</label>
-                        <input id="gate-reg-name" type="text" required placeholder="e.g. Maya Iyer" style="width: 100%; padding: 9px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.84rem;" />
-                      </div>
-                      <div>
-                        <label style="display: block; font-size: 0.78rem; color: var(--color-text); margin-bottom: 4px; font-weight: 600;">Username</label>
-                        <input id="gate-reg-user" type="text" required placeholder="e.g. mayaiyer" style="width: 100%; padding: 9px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.84rem;" />
-                      </div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 10px; margin-bottom: 10px;">
-                      <div>
-                        <label style="display: block; font-size: 0.78rem; color: var(--color-text); margin-bottom: 4px; font-weight: 600;">Email Address</label>
-                        <input id="gate-reg-email" type="email" required placeholder="maya@example.com" style="width: 100%; padding: 9px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.84rem;" />
-                      </div>
-                      <div>
-                        <label style="display: block; font-size: 0.78rem; color: var(--color-text); margin-bottom: 4px; font-weight: 600;">Phone Number</label>
-                        <input id="gate-reg-phone" type="tel" placeholder="+91 98765 43210" value="+91 98450 12345" style="width: 100%; padding: 9px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.84rem;" />
-                      </div>
-                    </div>
-
-                    <div style="margin-bottom: 10px;">
-                      <label style="display: block; font-size: 0.78rem; color: var(--color-text); margin-bottom: 4px; font-weight: 600;">Preferred Language</label>
-                      <select id="gate-reg-lang" style="width: 100%; padding: 9px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.84rem;">
-                        <option value="en" selected>English</option>
-                        <option value="kn">ಕನ್ನಡ (Kannada)</option>
-                        <option value="hi">हिन्दी (Hindi)</option>
-                        <option value="ta">தமிழ் (Tamil)</option>
-                        <option value="te">తెలుగు (Telugu)</option>
-                        <option value="ml">മലയാളം (Malayalam)</option>
-                      </select>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
-                      <div>
-                        <label style="display: block; font-size: 0.78rem; color: var(--color-text); margin-bottom: 4px; font-weight: 600;">Password</label>
-                        <input id="gate-reg-pw" type="password" required placeholder="Min 6 chars" minlength="6" value="password123" style="width: 100%; padding: 9px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.84rem;" />
-                      </div>
-                      <div>
-                        <label style="display: block; font-size: 0.78rem; color: var(--color-text); margin-bottom: 4px; font-weight: 600;">Confirm Password</label>
-                        <input id="gate-reg-pw-confirm" type="password" required placeholder="Repeat password" minlength="6" value="password123" style="width: 100%; padding: 9px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.84rem;" />
-                      </div>
-                    </div>
-
-                    <div style="margin-bottom: 14px; display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: var(--color-text-secondary);">
-                      <input type="checkbox" id="gate-reg-terms" checked required style="accent-color: var(--color-primary);" />
-                      <label for="gate-reg-terms">I agree to the Terms of Service & Privacy Policy</label>
-                    </div>
-
-                    <div style="background: rgba(22, 140, 145, 0.1); border: 1px solid var(--color-secondary); border-radius: var(--radius-sm); padding: 8px 10px; font-size: 0.74rem; color: var(--color-text); margin-bottom: 14px;">
-                      🛡️ <strong>Security Notice:</strong> All public registrations are assigned the <strong>Customer</strong> role. Administrative access requires authorized verification.
-                    </div>
-
-                    <button type="submit" class="btn-accent" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.92rem; font-weight: 700;">
-                      Register Customer Account ➔
-                    </button>
-                  </form>
-                </div>
-              </div>
-
-              <!-- ================= 2. ADMINISTRATOR PORTAL ================= -->
-              <div id="portal-admin-card" style="display: none;">
-                <div style="margin-bottom: 14px;">
-                  <p style="font-size: 0.82rem; color: var(--color-text-secondary); margin: 0 0 12px 0;">
-                    ${window.I18n ? I18n.t('adminDesc') : 'Manage products, users, inventory, orders and business analytics.'}
-                  </p>
-
-                  <div style="background: rgba(240, 120, 97, 0.12); border: 1px solid var(--color-accent); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 0.78rem; color: var(--color-text); margin-bottom: 16px; line-height: 1.45;">
-                    <strong style="color: var(--color-accent); display: block; margin-bottom: 2px;">⚠️ Restricted Access Area</strong>
-                    Administrative access is strictly restricted to authorized store operators and merchants. Public registration for administrators is disabled for platform security.
-                  </div>
-                </div>
-
-                <div id="admin-login-alert" style="display: none; padding: 10px 14px; border-radius: var(--radius-sm); background: rgba(217, 75, 75, 0.1); border: 1px solid var(--color-error); color: var(--color-error); font-size: 0.82rem; margin-bottom: 14px;"></div>
-
-                <form id="admin-login-form" onsubmit="App.handleAdminLogin(event)">
-                  <div style="margin-bottom: 12px;">
-                    <label style="display: block; font-size: 0.82rem; color: var(--color-text); margin-bottom: 6px; font-weight: 600;">Administrator Username or Internal Email</label>
-                    <input 
-                      id="admin-login-id" 
-                      type="text" 
-                      required 
-                      placeholder="e.g. rajesh or rajesh.menon@shopai.internal" 
-                      value="rajesh"
-                      style="width: 100%; padding: 10px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.88rem; outline: none;" 
-                    />
-                  </div>
-
-                  <div style="margin-bottom: 14px;">
-                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
-                      <label style="font-size: 0.82rem; color: var(--color-text); font-weight: 600;">Administrator Password</label>
-                      <button type="button" onclick="App.togglePasswordVisibility('admin-login-pw')" style="background:none; border:none; color:var(--color-secondary); font-size:0.75rem; cursor:pointer; font-weight:600;">Show/Hide</button>
-                    </div>
-                    <input 
-                      id="admin-login-pw" 
-                      type="password" 
-                      required 
-                      placeholder="••••••••" 
-                      value="password123"
-                      style="width: 100%; padding: 10px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-text); font-size: 0.88rem; outline: none;" 
-                    />
-                  </div>
-
-                  <div style="margin-bottom: 18px; padding: 8px 12px; background: var(--color-surface-elevated); border: 1px solid var(--color-border); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem;">
-                    <span style="color: var(--color-text-secondary);">🛡️ 256-Bit SSL Encrypted Admin Gateway</span>
-                    <span class="glass-pill active" style="font-size: 0.7rem; color: var(--color-accent); border-color: var(--color-accent);">Admin Role</span>
-                  </div>
-
-                  <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.92rem; font-weight: 700; background: var(--color-primary);">
-                    Sign In to Administrator Command Center ➔
-                  </button>
-                </form>
-              </div>
-
-            </div>
           </div>
         </div>
       `;
