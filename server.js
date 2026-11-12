@@ -1163,7 +1163,23 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`\n======================================================`);
   console.log(`🚀 ShopAI Server Running Locally at: http://localhost:${PORT}`);
+  console.log(`🌐 Standard Port 80 Available: http://localhost`);
   console.log(`📁 Project Directory: ${BASE_DIR}`);
   console.log(`💡 For XAMPP: Copy into C:\\xampp\\htdocs\\AI-Shopping-Assistant`);
   console.log(`======================================================\n`);
 });
+
+// Also bind port 80 for standard web traffic & custom domain mappings (e.g. www.a2z.com)
+if (Number(PORT) !== 80) {
+  try {
+    const server80 = http.createServer((req, res) => {
+      server.emit('request', req, res);
+    });
+    server80.listen(80, () => {
+      console.log(`🌐 Also listening on standard HTTP port 80 (http://localhost and custom domains)`);
+    });
+    server80.on('error', (err) => {
+      // Port 80 already in use or restricted, silently continue on PORT 3000
+    });
+  } catch (err) {}
+}
